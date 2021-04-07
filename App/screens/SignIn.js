@@ -1,14 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Image, SafeAreaView, TextInput, InputView, TouchableOpacity, ImageBackground, Button } from 'react-native';
-
+import { StyleSheet, Text, View, TouchableHighlight, Image, SafeAreaView, TextInput, InputView, TouchableOpacity, ImageBackground, Button, Keyboard } from 'react-native';
 
 
 export default class SignIn extends Component {
-  
+
+  state = {
+    email: '',
+    password: ''
+}
+
 // Handle the Login Button Action here // 
  handleLogin = () => { 
-   console.log("Login Button Pressed"); 
+   alert("Login Button Pressed");
+   
+   
+
+
+
 } 
 
 
@@ -43,7 +52,7 @@ export default class SignIn extends Component {
           style={styles.TextInput}
           placeholder="Email"
           placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(text) => this.setState({email: text})}
         />
       </View>
 
@@ -52,7 +61,7 @@ export default class SignIn extends Component {
           style={styles.TextInput}
           placeholder="Password"
           placeholderTextColor="#003f5c"
-          onChangeText={(password) => setPassword(password)}
+          onChangeText={(text) => this.setState({password: text})}
         />
       </View>
 

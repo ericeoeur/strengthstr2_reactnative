@@ -6,15 +6,19 @@ import Home from '../screens/Home';
 import Options from '../screens/Options';
 import Registration from '../screens/Registration'; 
 import SignIn from '../screens/SignIn'; 
+import Dashboard from '../screens/Dashboard'; 
 
 const MainStack = createStackNavigator();
 const MainStackScreen = () => (
-  <MainStack.Navigator>
-  {/* <MainStack.Navigator headerMode="none" initialRouteName="Options"> */}
+  <MainStack.Navigator
+  // headerMode="none" 
+  // initialRouteName="Dashboard"
+  > 
     <MainStack.Screen name="Home" component={Home} options={{ headerShown: false }}/>
     <MainStack.Screen name="Options" component={Options} />
     <MainStack.Screen name="Registration" component={Registration}/>
     <MainStack.Screen name="SignIn" component={SignIn}  />
+    <MainStack.Screen name="Dashboard" component={Dashboard}  />
   </MainStack.Navigator>
 );
 

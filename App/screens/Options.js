@@ -11,8 +11,6 @@ import colors from '../constants/colors';
 import {RowItem, RowSeperator} from '../components/RowItem';
 
 
-
-
 export default () => {
   return (
     <SafeAreaView style={{ flex:1 }}>

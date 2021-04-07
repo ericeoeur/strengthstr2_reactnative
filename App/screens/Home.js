@@ -45,13 +45,18 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     textAlign: "center"
   },
-  ImageBackground: { 
-    flex: 1, 
+  ImageBackground: {
+    flex: 1,
     width: screen.width,
     height: screen.height,
-    alignItems: "center", 
+    alignItems: "center",
     justifyContent: 'center'
   },
+  header: {
+    alignItems: 'flex-end',
+    marginHorizontal: 20,
+    height: 110,
+  }
 
 });
 
@@ -59,6 +64,14 @@ const styles = StyleSheet.create({
 
 export default ({ navigation }) => {
   return <View style={styles.container}>
+
+    <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
+    <SafeAreaView style={styles.header}>
+      <TouchableOpacity onPress={() => navigation.push('Options')}>
+        <Entypo name="cog" size={32} color={colors.white} />
+      </TouchableOpacity>
+    </SafeAreaView>
+
     <StatusBar barStyle="light-content" />
     <ImageBackground
       source={require("../assets/images/tiny_grid.png")}
@@ -93,6 +106,12 @@ export default ({ navigation }) => {
         style={styles.introButton}
         title="Create An Account"
         onPress={() => navigation.push('Registration')}
+      />
+
+      <Button
+        style={styles.introButton}
+        title="Dashboard"
+        onPress={() => navigation.push('Dashboard')}
       />
 
     </ImageBackground>
