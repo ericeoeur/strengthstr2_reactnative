@@ -4,7 +4,7 @@ import { Entypo } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import colors from '../constants/colors';
-import { RegistrationInput } from '../components/RegistrationInput';
+
 
 const screen = Dimensions.get('window');
 
@@ -108,11 +108,11 @@ export default ({ navigation }) => {
         onPress={() => navigation.push('Registration')}
       />
 
-      <Button
+      {/* <Button
         style={styles.introButton}
         title="Dashboard"
         onPress={() => navigation.push('Dashboard')}
-      />
+      /> */}
 
     </ImageBackground>
   </View>

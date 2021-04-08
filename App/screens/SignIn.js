@@ -2,6 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight, Image, SafeAreaView, TextInput, InputView, TouchableOpacity, ImageBackground, Button, Keyboard } from 'react-native';
 
+import colors from '../constants/colors';
+import { Entypo } from '@expo/vector-icons';
+
+
 
 export default class SignIn extends Component {
 
@@ -34,27 +38,24 @@ export default class SignIn extends Component {
         }
         else{
           alert("Login Successful")
-          this.props.navigation.navigate('Dashboard');
+          // AsyncStorage.setItem('USER', jsonData);
+          this.props.navigation.navigate('Dashboard', { myJSON: jsonData}
+          );
         }
     })
     .catch((e)=>{
         console.log(e);
     })
-   
-   
-
-
-
 } 
 
 
-// Set the email and password to login from state // 
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState(''); 
   render() {
 
   return (
     <View style={styles.container}>
+
+
+      
       <ImageBackground
         source={require("../assets/images/tiny_grid.png")}
         imageStyle={{ flex: 1 }}

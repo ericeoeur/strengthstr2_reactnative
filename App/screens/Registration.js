@@ -1,6 +1,5 @@
 import React, { Component, useState } from 'react';
 import { View, StyleSheet, StatusBar, Image, Dimensions, Text, ScrollView, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 
 import colors from '../constants/colors';
@@ -139,6 +138,7 @@ render () {
     <RegistrationInput
       text="User Name"
       value= {this.username}
+      autoCapitalize='none'
       onButtonPress={() => alert("Add your name!")}
       onChangeText={username => this.setState({username})}
     />
@@ -146,6 +146,7 @@ render () {
     <RegistrationInput
       text="Email"
       value= {this.email}
+      autoCapitalize='none'
       onButtonPress={() => alert("Add your email!")}
       onChangeText={email => this.setState({email})}
 
@@ -154,6 +155,7 @@ render () {
     <RegistrationInput
       text="Password"
       value= {this.password}
+      autoCapitalize='none'
       onButtonPress={() => alert("Add your password!")}
       onChangeText={password => this.setState({password})}
 
@@ -162,6 +164,7 @@ render () {
     <RegistrationInput
       text="Age"
       value= {this.age}
+      autoCapitalize='none'
       onButtonPress={() => alert("Add your age!")}
       keyboardType="numeric"
       onChangeText={age => this.setState({age})}
@@ -170,6 +173,7 @@ render () {
     <RegistrationInput
       text="Weight"
       value= {this.weight}
+      autoCapitalize='none'
       onButtonPress={() => alert("Add your Weight!")}
       keyboardType="numeric"
       onChangeText={weight => this.setState({weight})}

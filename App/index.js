@@ -5,16 +5,8 @@ import { StyleSheet, Text, View, TouchableHighlight, Image, SafeAreaView, TextIn
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import SignIn from './screens/SignIn';
-import WelcomeScreen from './components/welcome';
-
-import Options from './screens/Options'
-import Home from './screens/Home'
-
 import Navigation from "./config/Navigation"; 
 
-// export default () => <Options />;
-// export default () => <Home />;
 export default () => <Navigation />
 
 

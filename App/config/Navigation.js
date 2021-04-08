@@ -12,13 +12,13 @@ const MainStack = createStackNavigator();
 const MainStackScreen = () => (
   <MainStack.Navigator
   // headerMode="none" 
-  // initialRouteName="Dashboard"
+  initialRouteName="Dashboard"
   > 
     <MainStack.Screen name="Home" component={Home} options={{ headerShown: false }}/>
     <MainStack.Screen name="Options" component={Options} />
     <MainStack.Screen name="Registration" component={Registration}/>
     <MainStack.Screen name="SignIn" component={SignIn}  />
-    <MainStack.Screen name="Dashboard" component={Dashboard}  />
+    <MainStack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
   </MainStack.Navigator>
 );
 

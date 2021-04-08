@@ -5,7 +5,6 @@ import {
 } from 'react-native';
 
 import { Entypo } from '@expo/vector-icons'; 
-
 import colors from '../constants/colors';
 
 import {RowItem, RowSeperator} from '../components/RowItem';
@@ -16,7 +15,7 @@ export default () => {
     <SafeAreaView style={{ flex:1 }}>
       <ScrollView>
       <RowItem
-        text="Themes"
+        text="About the Creator"
         onPress = {() => alert('Todo!')}
         rightIcon = { 
           <Entypo name="chevron-right" size={20} color={colors.blue} />
@@ -26,7 +25,7 @@ export default () => {
       <RowSeperator />
 
       <RowItem
-        text="React Native Basics"
+        text="Portfolio"
         onPress = {() => alert('Todo!')}
         rightIcon = { 
           <Entypo name="export" size={20} color={colors.blue} />
@@ -35,7 +34,7 @@ export default () => {
       <RowSeperator />
 
       <RowItem
-        text="React Native By Example"
+        text="Contact"
         onPress = {() => alert('Todo!')}
         rightIcon = { 
           <Entypo name="export" size={20} color={colors.blue} />
