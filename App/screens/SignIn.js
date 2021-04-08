@@ -12,7 +12,34 @@ export default class SignIn extends Component {
 
 // Handle the Login Button Action here // 
  handleLogin = () => { 
-   alert("Login Button Pressed");
+   fetch("http://localhost:8000/lifter/login", {
+    method: 'POST',
+    
+    headers: {
+        'Accept': 'application/json',
+        "Content-Type": "application/json",                
+    },
+    body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+    })
+})
+    .then((resp)=>{
+        return resp.json();
+    })
+    .then((jsonData) => {
+        console.log(JSON.stringify(jsonData));
+        if(!Object.keys(jsonData["data"]).length){
+            alert("Wrong username/password. Try again");
+        }
+        else{
+          alert("Login Successful")
+          this.props.navigation.navigate('Dashboard');
+        }
+    })
+    .catch((e)=>{
+        console.log(e);
+    })
    
    
 
@@ -41,17 +68,13 @@ export default class SignIn extends Component {
       />
 
 
-       <Button
-        title="Welcome"
-        onPress={() => navigation.navigate('WelcomeScreen')}
-      />
-
-
+      
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="Email"
           placeholderTextColor="#003f5c"
+          autoCapitalize='none'
           onChangeText={(text) => this.setState({email: text})}
         />
       </View>
@@ -61,6 +84,7 @@ export default class SignIn extends Component {
           style={styles.TextInput}
           placeholder="Password"
           placeholderTextColor="#003f5c"
+          autoCapitalize='none'
           onChangeText={(text) => this.setState({password: text})}
         />
       </View>
