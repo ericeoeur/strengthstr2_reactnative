@@ -138,20 +138,26 @@ export default class Workouts extends Component {
   }
 
 
-    // == Delete a Movie based off Workout ID== //
+    // == Delete a workout and associated exercises based off Workout ID== //
     handleDeleteWorkout(id) {
       console.log("deleted button")
       console.log(id)
-  
+
+      fetch('http://localhost:8000/workouts/' + id + "/exercises", {
+        method: 'DELETE',
+      }).then(res => {
+        console.log("deleted exercises")
+      }).then(  
       fetch('http://localhost:8000/workouts/' + id, {
         method: 'DELETE',
       }).then(res => {
         console.log("deleted Workout")
         this.componentDidMount()
-
-     
       })
+      )
     }
+
+
 
 
   
