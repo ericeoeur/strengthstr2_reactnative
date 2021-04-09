@@ -13,7 +13,6 @@ import {
   StatusBar
 } from 'react-native';
 
-import DashboardNavigation from "../config/Navigation"; 
 import { Entypo } from '@expo/vector-icons';
 import colors from '../constants/colors';
 
@@ -72,29 +71,26 @@ const styles = StyleSheet.create({
 
 });
 
-
 export default class Dashboard extends Component {
 
-  handleLogOut = () => { 
+  handleLogOut = () => {
     alert("You have logged out!")
 
     fetch("http://localhost:8000/lifter/logout", {
       method: 'GET'
     })
-      .then((resp)=> {
-        return resp.json(); 
+      .then((resp) => {
+        return resp.json();
       })
       .then((jsonData) => {
         console.log(JSON.stringify(jsonData));
         this.props.navigation.push('Home')
       })
-      .catch((e)=>{
+      .catch((e) => {
         console.log(e);
-    })
+      })
 
   }
-
-
 
   render() {
     console.log(this.props);
@@ -117,22 +113,22 @@ export default class Dashboard extends Component {
         >
 
           <ScrollView>
-            <Text>{this.props.route.params.myJSON.data.username}'s Dashboard</Text> 
+            <Text>{this.props.route.params.myJSON.data.username}'s Dashboard</Text>
             <Text>Email: {this.props.route.params.myJSON.data.email}</Text>
             <Text>Weight: {this.props.route.params.myJSON.data.weight} </Text>
             <Text>Age: {this.props.route.params.myJSON.data.age}</Text>
             <Text>User Id: {this.props.route.params.myJSON.data.id}</Text>
-<Text>
-           <Button style={styles.introButton}
-              title="Workouts"
-              onPress={() => this.props.navigation.navigate('Workouts', { userData: this.props.route.params.myJSON} 
-              )
-              }/> 
-      
-      </Text>
+            <Text>
+              <Button style={styles.introButton}
+                title="Workouts"
+                onPress={() => this.props.navigation.navigate('Workouts', { userData: this.props.route.params.myJSON }
+                )
+                } />
+
+            </Text>
           </ScrollView>
         </ImageBackground>
-        
+
 
       </View>
 

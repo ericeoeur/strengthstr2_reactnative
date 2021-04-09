@@ -15,7 +15,7 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 
-
+import { Ionicons } from '@expo/vector-icons';
 import colors from '../constants/colors';
 
 const screen = Dimensions.get('window');
@@ -86,14 +86,19 @@ export default class Exercises extends Component {
     super(props)
     this.state = {
       exercises: [],
-      exerciselistLoaded: false
+      exerciselistLoaded: false,
+      currentExerciseLoaded: false,
+      currentExercise: [],
+      workoutId: this.props.route.params.workoutId
     }
+    this.handleAddExercise = this.handleAddExercise.bind(this)
+
   }
 
   componentDidMount() {
-    let workoutId = this.props.route.params.workoutId; 
+    let workoutId = this.props.route.params.workoutId;
 
-    fetch("http://localhost:8000/workouts/"+workoutId+"/exercises")
+    fetch("http://localhost:8000/workouts/" + workoutId + "/exercises")
       .then(data => {
         return data.json()
       },
@@ -101,22 +106,71 @@ export default class Exercises extends Component {
       .then(parsedData =>
         this.setState({
           exerciselistLoaded: true,
-          exercises: parsedData
+          exercises: parsedData,
         }),
         err => console.log(err))
   }
 
+  handleAddExercise() {
+    console.log(this.state.workoutId);
+    fetch('http://localhost:8000/workouts/'+ this.state.workoutId +"/exercises", {
+      method: 'POST',
+      body: JSON.stringify({
+        lift_name: '',
+        weight: 0,
+        sets: 0,
+        reps: 0,
+        note: '',
+        completed: false,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+
+    }).then(res => res.json())
+      .then((resJson) =>
+
+      console.log(resJson)
+
+        // this.setState({
+        //   currentExerciseLoaded: true,
+        //   currentExercise: resJson.data
+        // }),
+        // err => console.log(err)
+
+      ).then((resJson) =>
+        // this.props.navigation.navigate('Exercises', { workoutId: this.state.currentWorkout.id })
+        console.log("added exercise")
+
+      ).then(
+        this.componentDidMount()
+
+    ).catch(error => console.log({ 'Error': error }))
+  }
+
+
   render() {
-    const { navigate } = this.props.navigation; 
+    const { navigate } = this.props.navigation;
     return (
       <View>
+
+<TouchableOpacity
+          onPress={this.handleAddExercise}
+        >
+          <Text style={{
+            justifyContent: 'center', alignItems: 'center', padding: 20,
+          }}>Add Exercise</Text>
+        </TouchableOpacity>
+
+
+
         {this.state.exerciselistLoaded && (
           <View style={{ paddingTop: 30 }}>
             <FlatList
               data={this.state.exercises.data}
               renderItem={({ item }) =>
                 <ExerciseItem
-                  navigate = {navigate}
+                  navigate={navigate}
                   id={item.id}
                   lift_name={item.lift_name}
                   note={item.note}
@@ -142,14 +196,15 @@ export default class Exercises extends Component {
 
 
 export class ExerciseItem extends React.Component {
-  onPress = () => { console.log(this.props.id)
+  onPress = () => {
+    console.log(this.props.id)
     // this.props.navigate('Exercises', {workoutId: this.props.id});
   };
 
-  render(){
-    return(
+  render() {
+    return (
       <TouchableWithoutFeedback onPress={this.onPress}>
-        <View style={{ paddingTop: 20, alignItems: 'center'}}>
+        <View style={{ paddingTop: 20, alignItems: 'center' }}>
           <Text>
             Exercise ID: {this.props.id}
             lift_name: {this.props.lift_name}
