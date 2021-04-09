@@ -129,7 +129,7 @@ export default class Workouts extends Component {
         err => console.log(err)
 
       ).then((resJson) =>
-      
+        // console.log("test")
         this.props.navigation.navigate('Exercises', { workoutId: this.state.currentWorkout.id })
 
       ).then(
