@@ -89,7 +89,6 @@ export default class Workouts extends Component {
       exerciseLoaded: false
     }
     this.handleAddWorkout = this.handleAddWorkout.bind(this)
-
   }
 
   componentDidMount() {
@@ -127,16 +126,19 @@ export default class Workouts extends Component {
           currentWorkout: resJson.data
         }),
         err => console.log(err)
-       
 
       ).then((resJson) =>
-        this.props.navigation.navigate('Exercises', { workoutId: this.state.currentWorkout.id})
-     
+      
+        this.props.navigation.navigate('Exercises', { workoutId: this.state.currentWorkout.id })
 
+      ).then(
+        this.componentDidMount()
 
-      ).catch(error => console.log({ 'Error': error }))
+    ).catch(error => console.log({ 'Error': error }))
   }
 
+
+  
 
 
 
@@ -152,10 +154,6 @@ export default class Workouts extends Component {
             justifyContent: 'center', alignItems: 'center', padding: 20,
           }}>Add Workout</Text>
         </TouchableOpacity>
-
-
-
-
 
         {this.state.listLoaded && (
           <View style={{ paddingTop: 30 }}>
