@@ -11,6 +11,7 @@ import SignIn from '../screens/SignIn';
 import Dashboard from '../screens/Dashboard';
 import Workouts from '../screens/Workouts';
 import Exercises from '../screens/Exercises';
+import ExerciseDetail from '../screens/ExerciseDetail';
 
 
 
@@ -65,6 +66,7 @@ const MainStackScreen = () => (
     <MainStack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
     <MainStack.Screen name="Workouts" component={Workouts} />
     <MainStack.Screen name="Exercises" component={Exercises} />
+    <MainStack.Screen name="ExerciseDetail" component={ExerciseDetail} />
   </MainStack.Navigator>
 );
 

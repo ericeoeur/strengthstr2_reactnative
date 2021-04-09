@@ -113,7 +113,7 @@ export default class Exercises extends Component {
 
   handleAddExercise() {
     console.log(this.state.workoutId);
-    fetch('http://localhost:8000/workouts/'+ this.state.workoutId +"/exercises", {
+    fetch('http://localhost:8000/workouts/' + this.state.workoutId + "/exercises", {
       method: 'POST',
       body: JSON.stringify({
         lift_name: '',
@@ -130,22 +130,24 @@ export default class Exercises extends Component {
     }).then(res => res.json())
       .then((resJson) =>
 
-      console.log(resJson)
+        // console.log(resJson)
 
-        // this.setState({
-        //   currentExerciseLoaded: true,
-        //   currentExercise: resJson.data
-        // }),
-        // err => console.log(err)
+        this.setState({
+          currentExerciseLoaded: true,
+          currentExercise: resJson.data
+        }),
+        err => console.log(err)
 
       ).then((resJson) =>
-        // this.props.navigation.navigate('Exercises', { workoutId: this.state.currentWorkout.id })
-        console.log("added exercise")
+        this.props.navigation.navigate('ExerciseDetail', { exerciseId: this.state.currentExercise.id, workoutId: this.state.workoutId })
+        // console.log("added exercise")
+
+
 
       ).then(
         this.componentDidMount()
 
-    ).catch(error => console.log({ 'Error': error }))
+      ).catch(error => console.log({ 'Error': error }))
   }
 
 
@@ -154,7 +156,7 @@ export default class Exercises extends Component {
     return (
       <View>
 
-<TouchableOpacity
+        <TouchableOpacity
           onPress={this.handleAddExercise}
         >
           <Text style={{
@@ -171,7 +173,8 @@ export default class Exercises extends Component {
               renderItem={({ item }) =>
                 <ExerciseItem
                   navigate={navigate}
-                  id={item.id}
+                  exerciseId={item.id}
+                  workoutId={this.state.workoutId}
                   lift_name={item.lift_name}
                   note={item.note}
                   reps={item.reps}
@@ -197,8 +200,8 @@ export default class Exercises extends Component {
 
 export class ExerciseItem extends React.Component {
   onPress = () => {
-    console.log(this.props.id)
-    // this.props.navigate('Exercises', {workoutId: this.props.id});
+    console.log(this.props.exerciseId)
+    this.props.navigate('ExerciseDetail', { exerciseId: this.props.exerciseId, workoutId: this.props.workoutId });
   };
 
   render() {
@@ -206,7 +209,7 @@ export class ExerciseItem extends React.Component {
       <TouchableWithoutFeedback onPress={this.onPress}>
         <View style={{ paddingTop: 20, alignItems: 'center' }}>
           <Text>
-            Exercise ID: {this.props.id}
+            Exercise ID: {this.props.exerciseId}
             lift_name: {this.props.lift_name}
             note: {this.props.note}
             reps: {this.props.reps}
