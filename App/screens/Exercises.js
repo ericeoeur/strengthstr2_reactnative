@@ -78,22 +78,92 @@ export default class Exercises extends Component {
     header: null
   };
 
+  static navigationOptions = {
+    header: null
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      exercises: [],
+      exerciselistLoaded: false
+    }
+  }
+
+  componentDidMount() {
+    let workoutId = this.props.route.params.workoutId; 
+
+    fetch("http://localhost:8000/workouts/"+workoutId+"/exercises")
+      .then(data => {
+        return data.json()
+      },
+        err => console.log(err))
+      .then(parsedData =>
+        this.setState({
+          exerciselistLoaded: true,
+          exercises: parsedData
+        }),
+        err => console.log(err))
+  }
 
   render() {
-
-    let workoutId = this.props.route.params.workoutId; 
+    const { navigate } = this.props.navigation; 
     return (
-      <View style={{ paddingTop: 40}}>
+      <View>
+        {this.state.exerciselistLoaded && (
+          <View style={{ paddingTop: 30 }}>
+            <FlatList
+              data={this.state.exercises.data}
+              renderItem={({ item }) =>
+                <ExerciseItem
+                  navigate = {navigate}
+                  id={item.id}
+                  lift_name={item.lift_name}
+                  note={item.note}
+                  reps={item.reps}
+                  sets={item.sets}
+                  weight={item.weight}
+                />
 
-        <Text>{workoutId}</Text>
-       
+              }
+            />
           </View>
         )}
 
- 
-  
-  
+        {!this.state.exerciselistLoaded && (
+          <View style={{ paddingTop: 30 }}>
+            <Text> LOADING </Text>
+          </View>
+        )}
+      </View>
+    );
+  }
+};
 
 
+export class ExerciseItem extends React.Component {
+  onPress = () => { console.log(this.props.id)
+    // this.props.navigate('Exercises', {workoutId: this.props.id});
+  };
+
+  render(){
+    return(
+      <TouchableWithoutFeedback onPress={this.onPress}>
+        <View style={{ paddingTop: 20, alignItems: 'center'}}>
+          <Text>
+            Exercise ID: {this.props.id}
+            lift_name: {this.props.lift_name}
+            note: {this.props.note}
+            reps: {this.props.reps}
+            sets: {this.props.sets}
+            weight: {this.props.weight}
+          </Text>
+        </View>
+
+
+
+      </TouchableWithoutFeedback>
+    )
+  }
 
 }

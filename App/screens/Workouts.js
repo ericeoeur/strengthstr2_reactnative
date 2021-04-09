@@ -84,8 +84,12 @@ export default class Workouts extends Component {
     super(props)
     this.state = {
       workouts: [],
-      listLoaded: false
+      listLoaded: false,
+      currentWorkout: [],
+      exerciseLoaded: false
     }
+    this.handleAddWorkout = this.handleAddWorkout.bind(this)
+
   }
 
   componentDidMount() {
@@ -102,17 +106,64 @@ export default class Workouts extends Component {
         err => console.log(err))
   }
 
+  handleAddWorkout() {
+    alert("add workout");
+    fetch('http://localhost:8000/workouts/', {
+      method: 'POST',
+      body: JSON.stringify({
+        note: '',
+        image: '',
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+
+    }).then(res => res.json())
+      .then((resJson) =>
+
+        // console.log(resJson)
+        this.setState({
+          exerciseLoaded: true,
+          currentWorkout: resJson.data
+        }),
+        err => console.log(err)
+       
+
+      ).then((resJson) =>
+        this.props.navigation.navigate('Exercises', { workoutId: this.state.currentWorkout.id})
+     
+
+
+      ).catch(error => console.log({ 'Error': error }))
+  }
+
+
+
+
   render() {
-    const { navigate } = this.props.navigation; 
+    const { navigate } = this.props.navigation;
     return (
       <View>
+
+        <TouchableOpacity
+          onPress={this.handleAddWorkout}
+        >
+          <Text style={{
+            justifyContent: 'center', alignItems: 'center', padding: 20,
+          }}>Add Workout</Text>
+        </TouchableOpacity>
+
+
+
+
+
         {this.state.listLoaded && (
           <View style={{ paddingTop: 30 }}>
             <FlatList
               data={this.state.workouts.data}
               renderItem={({ item }) =>
                 <WorkoutItem
-                  navigate = {navigate}
+                  navigate={navigate}
                   id={item.id}
                   image={item.image}
                   note={item.note}
@@ -136,20 +187,17 @@ export default class Workouts extends Component {
 
 export class WorkoutItem extends React.Component {
   onPress = () => {
-    this.props.navigate('Exercises', {workoutId: this.props.id});
+    this.props.navigate('Exercises', { workoutId: this.props.id });
   };
 
-  render(){
-    return(
+  render() {
+    return (
       <TouchableWithoutFeedback onPress={this.onPress}>
-        <View style={{ paddingTop: 20, alignItems: 'center'}}>
+        <View style={{ paddingTop: 20, alignItems: 'center' }}>
           <Text>
             Workout ID: {this.props.id}
           </Text>
         </View>
-
-
-
       </TouchableWithoutFeedback>
     )
   }
