@@ -15,7 +15,7 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 
-
+import { Ionicons } from '@expo/vector-icons';
 import colors from '../constants/colors';
 
 const screen = Dimensions.get('window');
@@ -89,6 +89,7 @@ export default class Workouts extends Component {
       exerciseLoaded: false
     }
     this.handleAddWorkout = this.handleAddWorkout.bind(this)
+    this.handleDeleteWorkout = this.handleDeleteWorkout.bind(this)
   }
 
   componentDidMount() {
@@ -138,6 +139,22 @@ export default class Workouts extends Component {
   }
 
 
+    // == Delete a Movie based off Workout ID== //
+    handleDeleteWorkout(id) {
+      console.log("deleted button")
+      console.log(id)
+  
+      fetch('http://localhost:8000/workouts/' + id, {
+        method: 'DELETE',
+      }).then(res => {
+        console.log("deleted Workout")
+        this.componentDidMount()
+
+     
+      })
+    }
+
+
   
 
 
@@ -165,6 +182,7 @@ export default class Workouts extends Component {
                   id={item.id}
                   image={item.image}
                   note={item.note}
+                  handleDeleteWorkout={this.handleDeleteWorkout.bind(this)}
                 />
 
               }
@@ -188,15 +206,33 @@ export class WorkoutItem extends React.Component {
     this.props.navigate('Exercises', { workoutId: this.props.id });
   };
 
+  onDelete = () => {
+
+    this.props.handleDeleteWorkout(this.props.id)
+
+
+  }
+
   render() {
     return (
+      <View style={{ paddingTop: 20, alignItems: 'center' }}>
+
       <TouchableWithoutFeedback onPress={this.onPress}>
-        <View style={{ paddingTop: 20, alignItems: 'center' }}>
           <Text>
             Workout ID: {this.props.id}
           </Text>
-        </View>
       </TouchableWithoutFeedback>
+
+        <TouchableOpacity onPress={this.onDelete}>
+        <Ionicons name="trash" size={25} color={colors.blue} />
+        </TouchableOpacity>
+
+        
+        </View>
+
+
+
+
     )
   }
 
