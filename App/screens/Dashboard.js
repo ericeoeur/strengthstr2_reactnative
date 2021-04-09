@@ -13,6 +13,7 @@ import {
   StatusBar
 } from 'react-native';
 
+import DashboardNavigation from "../config/Navigation"; 
 import { Entypo } from '@expo/vector-icons';
 import colors from '../constants/colors';
 
@@ -72,7 +73,6 @@ const styles = StyleSheet.create({
 });
 
 
-
 export default class Dashboard extends Component {
 
   handleLogOut = () => { 
@@ -88,7 +88,6 @@ export default class Dashboard extends Component {
         console.log(JSON.stringify(jsonData));
         this.props.navigation.push('Home')
       })
-
       .catch((e)=>{
         console.log(e);
     })
@@ -96,7 +95,10 @@ export default class Dashboard extends Component {
   }
 
 
+
   render() {
+    console.log(this.props);
+
     return (
       <View style={styles.container}>
 
@@ -114,29 +116,26 @@ export default class Dashboard extends Component {
           style={styles.ImageBackground}
         >
 
-
-
-
           <ScrollView>
-            <Text>This is where the dashboard for TEST will be</Text>
-            {/* <Text>This is where the dashboard for {this.props.route.params.myJSON.data.username} will be</Text> */}
+            <Text>{this.props.route.params.myJSON.data.username}'s Dashboard</Text> 
+            <Text>Email: {this.props.route.params.myJSON.data.email}</Text>
+            <Text>Weight: {this.props.route.params.myJSON.data.weight} </Text>
+            <Text>Age: {this.props.route.params.myJSON.data.age}</Text>
+            <Text>User Id: {this.props.route.params.myJSON.data.id}</Text>
+<Text>
+           <Button style={styles.introButton}
+              title="Workouts"
+              onPress={() => this.props.navigation.navigate('Workouts', { userData: this.props.route.params.myJSON} 
+              )
+              }/> 
+      
+      </Text>
           </ScrollView>
         </ImageBackground>
+        
+
       </View>
+
     );
   }
 };
-
-
-// export default class Dashboard extends Component  {
-
-//   render() {
-//   return (
-//     <SafeAreaView style={{ flex: 1 }}>
-//       <ScrollView>
-//         <Text>This is where the dashboard will be</Text>
-//       </ScrollView>
-//     </SafeAreaView>
-//   );
-//   }
-// };
