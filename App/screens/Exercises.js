@@ -92,6 +92,7 @@ export default class Exercises extends Component {
       workoutId: this.props.route.params.workoutId
     }
     this.handleAddExercise = this.handleAddExercise.bind(this)
+    this.handleDeleteExercise = this.handleDeleteExercise.bind(this)
 
   }
 
@@ -151,6 +152,28 @@ export default class Exercises extends Component {
   }
 
 
+   // == Delete a workout and associated exercises based off Workout ID== //
+   handleDeleteExercise(id) {
+    console.log("deleted button")
+    console.log(id)
+
+    fetch('http://localhost:8000/workouts/' + this.state.workoutId + "/exercises/" +id, {
+      method: 'DELETE',
+    }).then(res => {
+      console.log("deleted exercise")
+    }).then(res => {
+      this.componentDidMount()
+    })
+    
+  }
+
+
+
+
+
+
+
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -180,6 +203,7 @@ export default class Exercises extends Component {
                   reps={item.reps}
                   sets={item.sets}
                   weight={item.weight}
+                  handleDeleteExercise={this.handleDeleteExercise.bind(this)}
                 />
 
               }
@@ -204,10 +228,21 @@ export class ExerciseItem extends React.Component {
     this.props.navigate('ExerciseDetail', { exerciseId: this.props.exerciseId, workoutId: this.props.workoutId });
   };
 
+  onDelete = () => {
+
+    this.props.handleDeleteExercise(this.props.exerciseId)
+
+
+  }
+
+
+
+
   render() {
     return (
-      <TouchableWithoutFeedback onPress={this.onPress}>
-        <View style={{ paddingTop: 20, alignItems: 'center' }}>
+
+      <View style={{ paddingTop: 20, alignItems: 'center' }}>
+        <TouchableWithoutFeedback onPress={this.onPress}>
           <Text>
             Exercise ID: {this.props.exerciseId}
             lift_name: {this.props.lift_name}
@@ -216,11 +251,20 @@ export class ExerciseItem extends React.Component {
             sets: {this.props.sets}
             weight: {this.props.weight}
           </Text>
-        </View>
+        </TouchableWithoutFeedback>
+
+        <TouchableOpacity onPress={this.onDelete}>
+          <Ionicons name="trash" size={25} color={colors.blue} />
+        </TouchableOpacity>
+
+      </View>
 
 
 
-      </TouchableWithoutFeedback>
+
+
+
+
     )
   }
 
