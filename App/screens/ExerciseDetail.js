@@ -12,11 +12,18 @@ import {
   StyleSheet,
   StatusBar,
   FlatList,
-  TouchableWithoutFeedback
+  ActivityIndicator
 } from 'react-native';
 
-import { Ionicons } from '@expo/vector-icons';
+
 import colors from '../constants/colors';
+import { TextInput } from 'react-native-gesture-handler';
+import { ExerciseInput, ExerciseNumberInput } from '../components/ExerciseInput';
+import { color } from 'react-native-reanimated';
+import NumericInput from 'react-native-numeric-input';
+
+
+
 
 const screen = Dimensions.get('window');
 
@@ -87,8 +94,14 @@ export default class ExerciseDetail extends Component {
     this.state = {
       currentExerciseLoaded: false,
       currentExercise: [],
+      lift_name: '',
+      weight: this.props.route.params.weight,
+      sets: this.props.route.params.sets,
+      reps: this.props.route.params.reps,
+      note: '',
+      completed: false
     }
-    // this.handleAddExercise = this.handleAddExercise.bind(this)
+    this.handleUpdateExercise = this.handleUpdateExercise.bind(this)
 
   }
 
@@ -105,11 +118,60 @@ export default class ExerciseDetail extends Component {
         this.setState({
           currentExerciseLoaded: true,
           currentExercise: parsedData.data,
+          lift_name: parsedData.data.lift_name,
+          weight: parsedData.data.weight,
+          sets: parsedData.data.sets,
+          reps: parsedData.data.reps,
+          note: parsedData.data.note,
+          completed: parsedData.data.completed
         }),
         err => console.log(err))
   }
 
- 
+  handleUpdateExercise () { 
+    let workoutId = this.props.route.params.workoutId;
+    let exerciseId = this.props.route.params.exerciseId;
+  
+    const {lift_name} = this.state;
+    const {weight} = this.state;
+    const {sets} = this.state;
+    const {reps} = this.state;
+    const {note} = this.state;
+    const {completed} = this.state;
+  
+    // console.log(username);
+  
+    let exercise = JSON.stringify({
+        lift_name: lift_name,
+        weight: Number(weight),
+        sets: Number(sets),
+        reps: Number(reps),
+        note: note,
+        completed: Boolean(completed),
+    })
+  
+    console.log(exercise);
+  
+    fetch('http://localhost:8000/workouts/'+workoutId+'/exercises/'+exerciseId, {
+      method: 'PUT',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body:(exercise)
+    })
+    .then((response) => response.text())  
+      .then((responseJson) =>{
+      console.log(responseJson);
+      alert("Exercise Successfully Created!");
+      this.props.route.params.componentDidMount();
+    })
+      .catch((error)=>{
+        console.error(error);
+        alert(error);
+      });
+    
+  }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -122,13 +184,108 @@ export default class ExerciseDetail extends Component {
           }}>Test</Text>
         </TouchableOpacity>
 
+        <ExerciseInput
+          text="Lift Name"
+          value={this.state.lift_name}
+          autoCapitalize='none'
+          onButtonPress={() => alert("Add your name!")}
+          onChangeText={lift_name => this.setState({ lift_name })}
+        />
+{/* 
+        <ExerciseNumberInput
+          text="Weight"
+          value={this.state.currentExercise.weight}
+          autoCapitalize='none'
+          onButtonPress={() => alert("Add your name!")}
+          onChange={weight => this.setState({ weight })}
+        /> */}
+
+        <Text>Weight</Text>
+        <NumericInput         
+        value={this.state.weight}
+        onChange={weight => this.setState({ weight })} 
+        step={5}
+        />
+
+        {/* <ExerciseNumberInput
+          text="Sets"
+          value={this.state.sets}
+          autoCapitalize='none'
+          onButtonPress={() => alert("Add your name!")}
+          onChangeText={sets => this.setState({ sets })}
+        /> */}
+
+        <Text>Sets</Text>
+        <NumericInput         
+        value={this.state.sets}
+        onChange={sets => this.setState({ sets })} 
+        />
+
+
+      <Text>Reps</Text>
+        <NumericInput         
+        value={this.state.reps}
+        onChange={reps => this.setState({ reps })} 
+        />
+
+
+
+        {/* <ExerciseNumberInput
+          text="Reps"
+          value={this.state.reps}
+          autoCapitalize='none'
+          onButtonPress={() => alert("Add your name!")}
+          onChangeText={reps => this.setState({ reps })}
+        /> */}
+
+        <ExerciseInput
+          text="Note"
+          value={this.state.note}
+          autoCapitalize='none'
+          onButtonPress={() => alert("Add your name!")}
+          onChangeText={note => this.setState({ note })}
+        />
+
+
+
+        <TouchableOpacity
+          onPress={this.handleUpdateExercise}
+          style={styles.loginButton}>
+          <Text style={{
+            color: color.blue, justifyContent: 'center', alignItems: 'center', padding: 20,
+          }}>Create Exercise</Text>
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity >
+      <Text style={{
+        color: color.blue, justifyContent: 'center', alignItems: 'center', padding: 20,
+      }}>Completed</Text>
+    </TouchableOpacity>
+
+    <TouchableOpacity >
+      <Text style={{
+        color: color.blue, justifyContent: 'center', alignItems: 'center', padding: 20,
+      }}>Failed</Text>
+    </TouchableOpacity> */}
+
+
 
 
         {this.state.currentExerciseLoaded && (
           <View style={{ paddingTop: 30 }}>
-           <Text>
-             {this.state.currentExercise.lift_name}
-           </Text>
+
+            <Text>
+              {this.state.currentExercise.lift_name}
+              {this.state.currentExercise.weight}
+              {this.state.currentExercise.sets}
+              {this.state.currentExercise.reps}
+              {this.state.currentExercise.note}
+              {this.state.currentExercise.completed}
+            </Text>
+
+
+
+
           </View>
         )}
 

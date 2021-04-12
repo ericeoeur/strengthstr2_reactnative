@@ -15,6 +15,7 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 
+import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../constants/colors';
 
@@ -78,9 +79,6 @@ export default class Exercises extends Component {
     header: null
   };
 
-  static navigationOptions = {
-    header: null
-  }
 
   constructor(props) {
     super(props)
@@ -93,6 +91,7 @@ export default class Exercises extends Component {
     }
     this.handleAddExercise = this.handleAddExercise.bind(this)
     this.handleDeleteExercise = this.handleDeleteExercise.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
 
   }
 
@@ -111,6 +110,11 @@ export default class Exercises extends Component {
         }),
         err => console.log(err))
   }
+
+
+
+
+  
 
   handleAddExercise() {
     console.log(this.state.workoutId);
@@ -140,7 +144,10 @@ export default class Exercises extends Component {
         err => console.log(err)
 
       ).then((resJson) =>
-        this.props.navigation.navigate('ExerciseDetail', { exerciseId: this.state.currentExercise.id, workoutId: this.state.workoutId })
+        this.props.navigation.navigate('ExerciseDetail', { exerciseId: this.state.currentExercise.id, 
+        workoutId: this.state.workoutId,
+        componentDidMount: this.componentDidMount.bind(this)
+       })
         // console.log("added exercise")
 
 
@@ -169,13 +176,11 @@ export default class Exercises extends Component {
 
 
 
-
-
-
-
-
   render() {
     const { navigate } = this.props.navigation;
+
+    
+
     return (
       <View>
 
@@ -204,6 +209,7 @@ export default class Exercises extends Component {
                   sets={item.sets}
                   weight={item.weight}
                   handleDeleteExercise={this.handleDeleteExercise.bind(this)}
+                  componentDidMount={this.componentDidMount.bind(this)}
                 />
 
               }
@@ -223,9 +229,18 @@ export default class Exercises extends Component {
 
 
 export class ExerciseItem extends React.Component {
+
+
   onPress = () => {
     console.log(this.props.exerciseId)
-    this.props.navigate('ExerciseDetail', { exerciseId: this.props.exerciseId, workoutId: this.props.workoutId });
+    this.props.navigate('ExerciseDetail', { 
+      exerciseId: this.props.exerciseId, 
+      workoutId: this.props.workoutId, 
+      weight: this.props.weight, 
+      sets: this.props.sets, 
+      reps: this.props.reps,
+      componentDidMount: this.props.componentDidMount
+    });
   };
 
   onDelete = () => {
