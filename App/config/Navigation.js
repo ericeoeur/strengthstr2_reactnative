@@ -12,13 +12,15 @@ import Dashboard from '../screens/Dashboard';
 import Workouts from '../screens/Workouts';
 import Exercises from '../screens/Exercises';
 import ExerciseDetail from '../screens/ExerciseDetail';
+import colors from '../constants/colors';
+
 
 
 
 const AppTabs = createBottomTabNavigator();
 const AppTabsScreen = (props) => (
   <AppTabs.Navigator>
-  <AppTabs.Screen
+    <AppTabs.Screen
       name="Dashboard"
       // component={Dashboard}
       children={(props) => <Dashboard {...props} AppTabsScreen={AppTabsScreen} />}
@@ -61,8 +63,31 @@ const MainStackScreen = () => (
   >
     <MainStack.Screen name="Home" component={Home} options={{ headerShown: false }} />
     <MainStack.Screen name="Options" component={Options} />
-    <MainStack.Screen name="Registration" component={Registration} />
-    <MainStack.Screen name="SignIn" component={SignIn} />
+    <MainStack.Screen name="Registration" component={Registration} 
+    options={{
+      title: 'Registration',
+      headerStyle: {
+        backgroundColor: colors.blue,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }} />
+    <MainStack.Screen name="SignIn" 
+    component={SignIn}
+    options={{
+      title: 'Log In',
+      headerStyle: {
+        backgroundColor: colors.blue,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}  
+    
+    />
     <MainStack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
     <MainStack.Screen name="Workouts" component={Workouts} />
     <MainStack.Screen name="Exercises" component={Exercises} />
@@ -70,13 +95,10 @@ const MainStackScreen = () => (
   </MainStack.Navigator>
 );
 
-
-
-
 export default () => (
   // adds information for our navigation to render our screens
   <NavigationContainer>
-    <MainStackScreen/>
+    <MainStackScreen />
     {/* <AppTabsScreen /> */}
   </NavigationContainer>
 );

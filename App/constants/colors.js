@@ -10,5 +10,6 @@ export default {
   gray: '#363636',
   lightwhite: '#f5f5f5',
   bulma: '#00d1b2',
-  textLight: '#797979'
+  textLight: '#797979',
+  fontFamily: 'Avenir-Light' 
 };

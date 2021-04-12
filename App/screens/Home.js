@@ -62,8 +62,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 30,
     fontFamily: 'Avenir-Light'    
-
-
   }
 
 });
@@ -83,6 +81,7 @@ export default ({ navigation }) => {
     </SafeAreaView>
 
     <StatusBar barStyle="light-content" />
+    
     <ImageBackground
       source={require("../assets/images/tiny_grid.png")}
       imageStyle={{ flex: 1 }}
