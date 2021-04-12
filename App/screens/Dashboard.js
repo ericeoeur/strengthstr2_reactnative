@@ -15,6 +15,8 @@ import {
 
 import { Entypo } from '@expo/vector-icons';
 import colors from '../constants/colors';
+import { RowItem, RowSeperator } from '../components/RowItem';
+
 
 const screen = Dimensions.get('window');
 
@@ -24,49 +26,126 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: colors.linkblue,
   },
+  inputView: {
+    backgroundColor: colors.blue,
+    borderRadius: 30,
+    width: "65%",
+    height: 75,
+    marginBottom: 20,
+    alignItems: "center",
+  },
+
+  TextInput: {
+    height: 50,
+    flex: 1,
+    padding: 10,
+    fontFamily: colors.fontFamily,
+    color: 'white',
+    fontSize: 20
+  },
+
+  loginBtn: {
+    width: screen.width * 0.75,
+    borderRadius: 25,
+    height: 65,
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    backgroundColor: colors.bulma,
+    fontFamily: colors.fontFamily
+
+  },
+  loginText: {
+    fontSize: 35,
+    color: 'white',
+    fontFamily: colors.fontFamily,
+    fontWeight: 'bold',
+
+  },
+
+  ImageBackground: { flex: 1, width: '100%', height: '125%', alignItems: "center" },
+
+  buttonContainers: {
+    backgroundColor: colors.blue,
+    borderRadius: 30,
+    width: screen.width * 0.95,
+    height: 75,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: 'center',
+    color: 'white'
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 30,
+    fontFamily: 'Avenir-Light'
+  },
+
   logoContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
+    marginTop: 20,
   },
   logoBackground: {
     width: screen.width / 0.80,
     height: screen.width * 0.80,
   },
+
   logo: {
     position: 'absolute',
     width: screen.width * 0.75,
     height: screen.width * 0.75,
   },
-  introButton: {
-    width: "75%",
-    borderRadius: 25,
-    height: 50,
-    padding: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    backgroundColor: "tan",
-  },
   textHeader: {
     color: colors.blue,
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 45,
     marginVertical: 20,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: 'Avenir-Light'
   },
-  ImageBackground: {
-    flex: 1,
-    width: screen.width,
-    height: screen.height,
-    alignItems: "center",
-    justifyContent: 'center'
+  textBody: {
+    color: colors.bulma,
+    fontWeight: 'bold',
+    fontSize: 25,
+    marginVertical: 5,
+    textAlign: "center",
+    fontFamily: 'Avenir-Light'
+  },
+  textBodyFail: {
+    color: colors.dangerred,
+    fontWeight: 'bold',
+    fontSize: 25,
+    marginVertical: 5,
+    textAlign: "center",
+    fontFamily: 'Avenir-Light'
+  },
+  textBodyComplete: {
+    color: colors.linkblue,
+    fontWeight: 'bold',
+    fontSize: 25,
+    marginVertical: 5,
+    textAlign: "center",
+    fontFamily: 'Avenir-Light'
+  },
+  queryResultText: {
+    color: colors.gray,
+    fontSize: 20,
+    textAlign: "center",
+    fontFamily: 'Avenir-Light'
   },
   header: {
     alignItems: 'flex-end',
     marginHorizontal: 20,
     backgroundColor: colors.linkblue,
     height: 110,
+  },
+  bottom: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 36
   }
 
 });
@@ -112,25 +191,63 @@ export default class Dashboard extends Component {
           style={styles.ImageBackground}
         >
 
-          <ScrollView>
-            <Text>{this.props.route.params.myJSON.data.username}'s Dashboard</Text>
-            <Text>Email: {this.props.route.params.myJSON.data.email}</Text>
+          <View style={styles.logoContainer}>
+
+            <Image
+              source={require('../assets/images/background.png')}
+              style={styles.logoBackground}
+              resizeMode="contain"
+            />
+
+            <Image
+              source={require('../assets/images/ss_barbell_mono.png')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+
+          </View>
+
+
+          <Text style={styles.textHeader}> Hello, {(this.props.route.params.myJSON.data.username).toUpperCase()}!</Text>
+
+          <RowSeperator />
+
+          <Text style={styles.textBody}> Exercises Completed</Text>
+          <Text style={styles.queryResultText}> 10</Text>
+          <Text style={styles.textBodyFail}> Exercises Failed</Text>
+          <Text style={styles.queryResultText}> 5</Text>
+          <Text style={styles.textBodyComplete}> Workouts Total</Text>
+          <Text style={styles.queryResultText}> 25</Text>
+
+{/* Need to add queries from backend here to count */}
+
+
+          {/* <Text>Email: {this.props.route.params.myJSON.data.email}</Text>
             <Text>Weight: {this.props.route.params.myJSON.data.weight} </Text>
             <Text>Age: {this.props.route.params.myJSON.data.age}</Text>
-            <Text>User Id: {this.props.route.params.myJSON.data.id}</Text>
-            <Text>
-              <Button style={styles.introButton}
-                title="Workouts"
-                onPress={() => this.props.navigation.navigate('Workouts', { userData: this.props.route.params.myJSON }
-                )
-                } />
+            <Text>User Id: {this.props.route.params.myJSON.data.id}</Text> */}
 
-            </Text>
-          </ScrollView>
+
+
+          <View style={styles.bottom}>
+            <TouchableOpacity
+              style={styles.loginBtn}
+              onPress={() => this.props.navigation.navigate('Workouts', { userData: this.props.route.params.myJSON })
+              }>
+              <Text style={styles.loginText}>Workouts</Text>
+            </TouchableOpacity>
+          </View>
+
+
         </ImageBackground>
 
 
       </View>
+
+
+
+
+
 
     );
   }
