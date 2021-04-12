@@ -20,7 +20,6 @@ import { Ionicons } from '@expo/vector-icons';
 import colors from '../constants/colors';
 
 const screen = Dimensions.get('window');
-// import { RowItem, RowSeperator } from '../components/RowItem';
 import { ExerciseRowItem, ExerciseRowSeperator } from '../components/ExerciseRowItem';
 
 const styles = StyleSheet.create({
@@ -143,6 +142,11 @@ export default class Exercises extends Component {
   }
 
   componentDidMount() {
+
+    const { navigation } = this.props;
+
+    this.focusListener = navigation.addListener('focus', () => {
+
     let workoutId = this.props.route.params.workoutId;
 
     fetch("http://localhost:8000/workouts/" + workoutId + "/exercises")
@@ -156,6 +160,7 @@ export default class Exercises extends Component {
           exercises: parsedData,
         }),
         err => console.log(err))
+      });
   }
 
   handleAddExercise() {

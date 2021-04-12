@@ -164,7 +164,7 @@ export default class ExerciseDetail extends Component {
       .then((responseJson) =>{
       console.log(responseJson);
       alert("Exercise Successfully Created!");
-      this.props.route.params.componentDidMount();
+      // this.props.route.params.componentDidMount();
     })
       .catch((error)=>{
         console.error(error);
