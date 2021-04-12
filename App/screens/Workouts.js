@@ -4,16 +4,11 @@ import {
   ScrollView,
   Text,
   View,
-  ImageBackground,
-  Image,
   Dimensions,
   TouchableOpacity,
   Button,
   StyleSheet,
-  StatusBar,
-  FlatList,
-  SectionList,
-  TouchableWithoutFeedback
+  FlatList,  
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';

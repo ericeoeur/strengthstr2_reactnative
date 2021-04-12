@@ -20,12 +20,14 @@ import { Ionicons } from '@expo/vector-icons';
 import colors from '../constants/colors';
 
 const screen = Dimensions.get('window');
+// import { RowItem, RowSeperator } from '../components/RowItem';
+import { ExerciseRowItem, ExerciseRowSeperator } from '../components/ExerciseRowItem';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.blue,
     justifyContent: 'center',
-    backgroundColor: colors.linkblue,
   },
   logoContainer: {
     alignItems: 'center',
@@ -41,22 +43,13 @@ const styles = StyleSheet.create({
     width: screen.width * 0.75,
     height: screen.width * 0.75,
   },
-  introButton: {
-    width: "75%",
-    borderRadius: 25,
-    height: 50,
-    padding: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    backgroundColor: "tan",
-  },
   textHeader: {
     color: colors.blue,
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 35,
     marginVertical: 20,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: 'Avenir-Light'
   },
   ImageBackground: {
     flex: 1,
@@ -68,9 +61,65 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'flex-end',
     marginHorizontal: 20,
-    backgroundColor: colors.linkblue,
     height: 110,
-  }
+  },
+  buttonContainers: {
+    backgroundColor: colors.blue,
+    borderRadius: 30,
+    width: "60%",
+    height: 75,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: 'center',
+    color: 'white'
+  },
+  buttonContainersRegister: {
+    backgroundColor: colors.bulma,
+    borderRadius: 30,
+    width: "60%",
+    height: 75,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: 'center',
+    color: 'white'
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 30,
+    fontFamily: 'Avenir-Light'
+  },
+  top: {
+    flex: 1,
+    alignItems: "center",
+    marginBottom: 100
+  },
+  addExerciseButton: {
+    width: screen.width * 0.85,
+    borderRadius: 25,
+    height: 65,
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    backgroundColor: colors.bulma,
+    fontFamily: colors.fontFamily
+
+  },
+
+  workoutButtonText: {
+    fontSize: 30,
+    color: 'white',
+    fontFamily: colors.fontFamily,
+
+  },
+  textBody: {
+    color: colors.blue,
+    fontSize: 20,
+    marginVertical: 20,
+    textAlign: "center",
+    fontFamily: 'Avenir-Light'
+  },
+
 
 });
 
@@ -78,8 +127,6 @@ export default class Exercises extends Component {
   static navigationOptions = {
     header: null
   };
-
-
   constructor(props) {
     super(props)
     this.state = {
@@ -110,11 +157,6 @@ export default class Exercises extends Component {
         }),
         err => console.log(err))
   }
-
-
-
-
-  
 
   handleAddExercise() {
     console.log(this.state.workoutId);
@@ -157,8 +199,6 @@ export default class Exercises extends Component {
 
       ).catch(error => console.log({ 'Error': error }))
   }
-
-
    // == Delete a workout and associated exercises based off Workout ID== //
    handleDeleteExercise(id) {
     console.log("deleted button")
@@ -174,8 +214,6 @@ export default class Exercises extends Component {
     
   }
 
-
-
   render() {
     const { navigate } = this.props.navigation;
 
@@ -183,34 +221,87 @@ export default class Exercises extends Component {
 
     return (
       <View>
+    
+        <View style={styles.top}>
+          <TouchableOpacity
+            style={styles.addExerciseButton}
+            onPress={this.handleAddExercise}>
+            <Text style={styles.workoutButtonText}>Add Exercise</Text>
+          </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity
-          onPress={this.handleAddExercise}
-        >
-          <Text style={{
-            justifyContent: 'center', alignItems: 'center', padding: 20,
-          }}>Add Exercise</Text>
-        </TouchableOpacity>
+
+        <Text style={styles.textBody}> Sets x Reps @ Weight</Text>
 
 
 
         {this.state.exerciselistLoaded && (
-          <View style={{ paddingTop: 30 }}>
+          <View style={{ paddingTop: 20 }}>
             <FlatList
               data={this.state.exercises.data}
               renderItem={({ item }) =>
-                <ExerciseItem
-                  navigate={navigate}
-                  exerciseId={item.id}
-                  workoutId={this.state.workoutId}
-                  lift_name={item.lift_name}
-                  note={item.note}
-                  reps={item.reps}
-                  sets={item.sets}
-                  weight={item.weight}
-                  handleDeleteExercise={this.handleDeleteExercise.bind(this)}
-                  componentDidMount={this.componentDidMount.bind(this)}
-                />
+
+
+              <ExerciseRowItem
+              style={ { row: {
+                paddingHorizontal: 20,
+                paddingVertical: 16,
+                justifyContent: 'space-evenly', //maximize space between two icons in this row 
+                alignItems: 'center', //text and icon are aligned with each other 
+                flexDirection: 'row',
+                backgroundColor: colors.lightwhite,
+              },
+              title: {
+                color: colors.text,
+                fontSize: 25,
+              },
+              separator: {
+                backgroundColor: colors.border,
+                height: StyleSheet.hairlineWidth,
+                marginLeft: 20,
+              }}}
+              text={item.lift_name +" | " + item.sets +" x " + item.reps + " @ " + item.weight}
+              onPress={() => this.props.navigation.navigate('ExerciseDetail', { 
+                exerciseId: item.id, 
+                workoutId: this.state.workoutId, 
+                weight: item.weight, 
+                sets: item.sets, 
+                reps: item.reps,
+                componentDidMount: this.componentDidMount.bind(this)
+              })
+            }
+             
+
+              trashIcon={
+                <Ionicons 
+                name="trash-bin-outline" 
+                onPress={() => this.handleDeleteExercise(item.id)}
+                size={30} 
+                color={colors.dangerred} />
+              }
+
+
+              rightIcon={
+                <Ionicons 
+                name="chevron-forward-outline"
+                size={30} 
+                color={colors.bulma} />
+              } />
+
+
+
+                // <ExerciseItem
+                //   navigate={navigate}
+                //   exerciseId={item.id}
+                //   workoutId={this.state.workoutId}
+                //   lift_name={item.lift_name}
+                //   note={item.note}
+                //   reps={item.reps}
+                //   sets={item.sets}
+                //   weight={item.weight}
+                //   handleDeleteExercise={this.handleDeleteExercise.bind(this)}
+                //   componentDidMount={this.componentDidMount.bind(this)}
+                // />
 
               }
             />
@@ -244,10 +335,7 @@ export class ExerciseItem extends React.Component {
   };
 
   onDelete = () => {
-
     this.props.handleDeleteExercise(this.props.exerciseId)
-
-
   }
 
 
