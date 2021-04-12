@@ -57,7 +57,7 @@ export default class SignIn extends Component {
 
       
       <ImageBackground
-        source={require("../assets/images/tiny_grid.png")}
+        source={require("../assets/images/gridme.png")}
         imageStyle={{ flex: 1 }}
         resizeMode='repeat'
         style={styles.ImageBackground}

@@ -11,7 +11,7 @@ const screen = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.linkblue,
+    backgroundColor: colors.blue,
     justifyContent: 'center',
   },
   logoContainer: {
@@ -28,22 +28,13 @@ const styles = StyleSheet.create({
     width: screen.width * 0.75,
     height: screen.width * 0.75,
   },
-  introButton: {
-    width: "75%",
-    borderRadius: 25,
-    height: 50,
-    padding: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    backgroundColor: "tan",
-  },
   textHeader: {
     color: colors.blue,
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 35,
     marginVertical: 20,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: 'Avenir-Light'    
   },
   ImageBackground: {
     flex: 1,
@@ -56,6 +47,23 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     marginHorizontal: 20,
     height: 110,
+  },
+  buttonContainers: {
+    backgroundColor: colors.blue,
+    borderRadius: 30,
+    width: "60%",
+    height: 75,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: 'center',
+    color: 'white'
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 30,
+    fontFamily: 'Avenir-Light'    
+
+
   }
 
 });
@@ -100,15 +108,19 @@ export default ({ navigation }) => {
 
       <Text style={styles.textHeader}> StrengthSTR Mobile</Text>
 
-      <Button style={styles.introButton} title="Sign In"
-        onPress={() => navigation.push('SignIn')}
-      />
+      <TouchableOpacity 
+      style={styles.buttonContainers}
+      onPress={() => navigation.push('SignIn')}>
+      <Text style={styles.buttonText}>Sign In</Text>
+      </TouchableOpacity>
 
-      <Button
-        style={styles.introButton}
-        title="Create An Account"
-        onPress={() => navigation.push('Registration')}
-      />
+      <TouchableOpacity 
+      style={styles.buttonContainers}
+      onPress={() => navigation.push('Registration')}
+      >
+              <Text style={styles.buttonText}>Register</Text>
+
+      </TouchableOpacity>
 
       {/* <Button
         style={styles.introButton}
