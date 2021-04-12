@@ -35,12 +35,12 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 5,
   },
   logoBackground: {
     marginTop: 10,
-    width: screen.width / 0.6,
-    height: screen.width * 0.6,
+    width: screen.width / 0.55,
+    height: screen.width * 0.55,
   },
   textOverlayContainer: {
     position: 'absolute',
@@ -109,10 +109,47 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white'
   },
+  setCompletedContainer: {
+    marginBottom: 20,
+    alignItems: "center",
+    flexDirection:"row",
+    justifyContent:"space-evenly"
+  },
+
+  completedLiftButton: {
+    width: screen.width * 0.45,
+    borderRadius: 25,
+    height: 55,
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    backgroundColor: colors.successgreen,
+    fontFamily: colors.fontFamily
+  },
+  failedLiftButton: {
+    width: screen.width * 0.45,
+    borderRadius: 25,
+    height: 55,
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    backgroundColor: colors.dangerred,
+    fontFamily: colors.fontFamily
+  },
   numericInputContainer: {
     marginBottom: 20,
     alignItems: "center",
-    textAlign: "left"
+    textAlign: "left",
+    
+  },
+  liftButtonText: {
+    color: colors.lightwhite,
+    fontSize: 20,
+    textAlign: "left",
+    marginBottom: 5,
+    marginTop: 5
   },
   numericInputText: {
     color: colors.blue,
@@ -126,7 +163,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.bulma,
     borderRadius: 30,
     width: "60%",
-    height: 75,
+    height: 60,
     marginBottom: 20,
     alignItems: "center",
     justifyContent: 'center',
@@ -141,7 +178,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 50,
+    marginTop: 25,
     marginBottom: 10
   },
   addExerciseButton: {
@@ -154,8 +191,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: colors.bulma,
     fontFamily: colors.fontFamily
-
   },
+
+ 
 
   workoutButtonText: {
     fontSize: 30,
@@ -299,6 +337,20 @@ export default class ExerciseDetail extends Component {
             <Text> LOADING </Text>
           </View>
         )}
+{/* 
+        <View style={styles.setCompletedContainer}>
+
+        <TouchableOpacity
+            style={styles.completedLiftButton}
+            onPress={alert("Completed!")}>
+            <Text style={styles.liftButtonText}>Completed</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.failedLiftButton}
+            onPress={alert("Failed!")}>
+            <Text style={styles.liftButtonText}>Failed</Text>
+          </TouchableOpacity>
+        </View> */}
 
 
         <ExerciseInput
