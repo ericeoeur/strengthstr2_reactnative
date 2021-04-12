@@ -147,21 +147,6 @@ export default class Exercises extends Component {
 
 
     fetch("http://localhost:8000/workouts/" + workoutId + "/exercises")
-    .then(data => {
-      return data.json()
-    },
-      err => console.log(err))
-    .then(parsedData =>
-      this.setState({
-        exerciselistLoaded: true,
-        exercises: parsedData,
-      }),
-      err => console.log(err))
-  
-
-
-    this.focusListener = navigation.addListener('focus', () => {
-    fetch("http://localhost:8000/workouts/" + workoutId + "/exercises")
       .then(data => {
         return data.json()
       },
@@ -172,7 +157,22 @@ export default class Exercises extends Component {
           exercises: parsedData,
         }),
         err => console.log(err))
-      });
+
+
+
+    this.focusListener = navigation.addListener('focus', () => {
+      fetch("http://localhost:8000/workouts/" + workoutId + "/exercises")
+        .then(data => {
+          return data.json()
+        },
+          err => console.log(err))
+        .then(parsedData =>
+          this.setState({
+            exerciselistLoaded: true,
+            exercises: parsedData,
+          }),
+          err => console.log(err))
+    });
   }
 
   handleAddExercise() {
@@ -203,10 +203,11 @@ export default class Exercises extends Component {
         err => console.log(err)
 
       ).then((resJson) =>
-        this.props.navigation.navigate('ExerciseDetail', { exerciseId: this.state.currentExercise.id, 
-        workoutId: this.state.workoutId,
-        componentDidMount: this.componentDidMount.bind(this)
-       })
+        this.props.navigation.navigate('ExerciseDetail', {
+          exerciseId: this.state.currentExercise.id,
+          workoutId: this.state.workoutId,
+          componentDidMount: this.componentDidMount.bind(this)
+        })
         // console.log("added exercise")
 
 
@@ -216,29 +217,29 @@ export default class Exercises extends Component {
 
       ).catch(error => console.log({ 'Error': error }))
   }
-   // == Delete a workout and associated exercises based off Workout ID== //
-   handleDeleteExercise(id) {
+  // == Delete a workout and associated exercises based off Workout ID== //
+  handleDeleteExercise(id) {
     console.log("deleted button")
     console.log(id)
 
-    fetch('http://localhost:8000/workouts/' + this.state.workoutId + "/exercises/" +id, {
+    fetch('http://localhost:8000/workouts/' + this.state.workoutId + "/exercises/" + id, {
       method: 'DELETE',
     }).then(res => {
       console.log("deleted exercise")
     }).then(res => {
       this.componentDidMount()
     })
-    
+
   }
 
   render() {
     const { navigate } = this.props.navigation;
 
-    
+
 
     return (
       <View>
-    
+
         <View style={styles.top}>
           <TouchableOpacity
             style={styles.addExerciseButton}
@@ -259,51 +260,53 @@ export default class Exercises extends Component {
               renderItem={({ item }) =>
 
 
-              <ExerciseRowItem
-              style={ { row: {
-                paddingHorizontal: 20,
-                paddingVertical: 16,
-                justifyContent: 'space-evenly', //maximize space between two icons in this row 
-                alignItems: 'center', //text and icon are aligned with each other 
-                flexDirection: 'row',
-                backgroundColor: colors.lightwhite,
-              },
-              title: {
-                color: colors.text,
-                fontSize: 25,
-              },
-              separator: {
-                backgroundColor: colors.border,
-                height: StyleSheet.hairlineWidth,
-                marginLeft: 20,
-              }}}
-              text={item.lift_name +" | " + item.sets +" x " + item.reps + " @ " + item.weight}
-              onPress={() => this.props.navigation.navigate('ExerciseDetail', { 
-                exerciseId: item.id, 
-                workoutId: this.state.workoutId, 
-                weight: item.weight, 
-                sets: item.sets, 
-                reps: item.reps,
-                componentDidMount: this.componentDidMount.bind(this)
-              })
-            }
-             
-
-              trashIcon={
-                <Ionicons 
-                name="trash-bin-outline" 
-                onPress={() => this.handleDeleteExercise(item.id)}
-                size={30} 
-                color={colors.dangerred} />
-              }
+                <ExerciseRowItem
+                  style={{
+                    row: {
+                      paddingHorizontal: 20,
+                      paddingVertical: 16,
+                      justifyContent: 'space-evenly', //maximize space between two icons in this row 
+                      alignItems: 'center', //text and icon are aligned with each other 
+                      flexDirection: 'row',
+                      backgroundColor: colors.lightwhite,
+                    },
+                    title: {
+                      color: colors.text,
+                      fontSize: 25,
+                    },
+                    separator: {
+                      backgroundColor: colors.border,
+                      height: StyleSheet.hairlineWidth,
+                      marginLeft: 20,
+                    }
+                  }}
+                  text={item.lift_name + " | " + item.sets + " x " + item.reps + " @ " + item.weight}
+                  onPress={() => this.props.navigation.navigate('ExerciseDetail', {
+                    exerciseId: item.id,
+                    workoutId: this.state.workoutId,
+                    weight: item.weight,
+                    sets: item.sets,
+                    reps: item.reps,
+                    componentDidMount: this.componentDidMount.bind(this)
+                  })
+                  }
 
 
-              rightIcon={
-                <Ionicons 
-                name="chevron-forward-outline"
-                size={30} 
-                color={colors.bulma} />
-              } />
+                  trashIcon={
+                    <Ionicons
+                      name="trash-bin-outline"
+                      onPress={() => this.handleDeleteExercise(item.id)}
+                      size={30}
+                      color={colors.dangerred} />
+                  }
+
+
+                  rightIcon={
+                    <Ionicons
+                      name="chevron-forward-outline"
+                      size={30}
+                      color={colors.bulma} />
+                  } />
 
 
 
@@ -341,11 +344,11 @@ export class ExerciseItem extends React.Component {
 
   onPress = () => {
     console.log(this.props.exerciseId)
-    this.props.navigate('ExerciseDetail', { 
-      exerciseId: this.props.exerciseId, 
-      workoutId: this.props.workoutId, 
-      weight: this.props.weight, 
-      sets: this.props.sets, 
+    this.props.navigate('ExerciseDetail', {
+      exerciseId: this.props.exerciseId,
+      workoutId: this.props.workoutId,
+      weight: this.props.weight,
+      sets: this.props.sets,
       reps: this.props.reps,
       componentDidMount: this.props.componentDidMount
     });

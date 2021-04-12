@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
   },
   logoBackground: {
     marginTop: 10,
-    width: screen.width / 0.80,
-    height: screen.width * 0.80,
+    width: screen.width / 0.6,
+    height: screen.width * 0.6,
   },
   textOverlayContainer: {
     position: 'absolute',
@@ -53,9 +53,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     width: screen.width * 0.5,
     height: screen.width * 0.9,
-    paddingTop: 20,
+    paddingTop: 25,
     fontSize: 30,
-    fontFamily: colors.fontFamily 
+    fontFamily: colors.fontFamily,
+    color: colors.blue,
+    fontWeight: 'bold',
+
   },
   textOverlayDetails: {
     position: 'absolute',
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
     width: screen.width * 0.5,
     height: screen.width * 0.9,
     fontSize: 25,
-    fontFamily: colors.fontFamily 
+    fontFamily: colors.fontFamily
   },
   introButton: {
     width: "75%",
@@ -106,6 +109,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white'
   },
+  numericInputContainer: {
+    marginBottom: 20,
+    alignItems: "center",
+    textAlign: "left"
+  },
+  numericInputText: {
+    color: colors.blue,
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: "left",
+    marginBottom: 5,
+    marginTop: 5
+  },
   buttonContainersRegister: {
     backgroundColor: colors.bulma,
     borderRadius: 30,
@@ -121,16 +137,18 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'Avenir-Light'
   },
-  top: {
+  bottom: {
     flex: 1,
     alignItems: "center",
-    marginBottom: 100
+    justifyContent: "center",
+    marginTop: 50,
+    marginBottom: 10
   },
   addExerciseButton: {
     width: screen.width * 0.85,
     borderRadius: 25,
-    height: 65,
-    padding: 10,
+    height: 55,
+    padding: 5,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
@@ -253,7 +271,7 @@ export default class ExerciseDetail extends Component {
     return (
       <View>
 
-        
+
 
         {this.state.currentExerciseLoaded && (
           <View style={{ paddingTop: 30 }}>
@@ -267,30 +285,12 @@ export default class ExerciseDetail extends Component {
               />
 
               <View style={styles.textOverlayContainer}>
-              <Text style={styles.textOverlayLift} resizeMode="contain"> {this.state.lift_name}
-              </Text>
-              <Text style={styles.textOverlayDetails} resizeMode="contain"> {this.state.sets} x {this.state.reps} @ {this.state.weight}
-              </Text>
-
+                <Text style={styles.textOverlayLift} resizeMode="contain"> {this.state.lift_name}
+                </Text>
+                <Text style={styles.textOverlayDetails} resizeMode="contain"> {this.state.sets} x {this.state.reps} @ {this.state.weight}
+                </Text>
               </View>
-
-           
-
-
             </View>
-
-            <Text>
-              {this.state.currentExercise.lift_name}
-              {this.state.currentExercise.weight}
-              {this.state.currentExercise.sets}
-              {this.state.currentExercise.reps}
-              {this.state.currentExercise.note}
-              {this.state.currentExercise.completed}
-            </Text>
-
-
-
-
           </View>
         )}
 
@@ -309,28 +309,30 @@ export default class ExerciseDetail extends Component {
           onChangeText={lift_name => this.setState({ lift_name })}
         />
 
-
-        <Text>Weight</Text>
-        <NumericInput
-          value={this.state.weight}
-          onChange={weight => this.setState({ weight })}
-          step={5}
-        />
-
-
-
-        <Text>Sets</Text>
-        <NumericInput
-          value={this.state.sets}
-          onChange={sets => this.setState({ sets })}
-        />
-
-
-        <Text>Reps</Text>
-        <NumericInput
-          value={this.state.reps}
-          onChange={reps => this.setState({ reps })}
-        />
+        <SafeAreaView style={styles.numericInputContainer}>
+          <Text style={styles.numericInputText}>Weight</Text>
+          <NumericInput
+            totalWidth={screen.width * 0.9}
+            totalHeight={40}
+            value={this.state.weight}
+            onChange={weight => this.setState({ weight })}
+            step={5}
+          />
+          <Text style={styles.numericInputText}>Sets</Text>
+          <NumericInput
+            totalWidth={screen.width * 0.9}
+            totalHeight={40}
+            value={this.state.sets}
+            onChange={sets => this.setState({ sets })}
+          />
+          <Text style={styles.numericInputText}>Reps</Text>
+          <NumericInput
+            totalWidth={screen.width * 0.9}
+            totalHeight={40}
+            value={this.state.reps}
+            onChange={reps => this.setState({ reps })}
+          />
+        </SafeAreaView>
 
         <ExerciseInput
           text="Note"
@@ -341,14 +343,26 @@ export default class ExerciseDetail extends Component {
         />
 
 
+        <View style={styles.bottom}>
+          <TouchableOpacity
+            style={styles.addExerciseButton}
+            onPress={this.handleUpdateExercise}>
+            <Text style={styles.workoutButtonText}>Save Exercise</Text>
+          </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity
+
+
+        {/* <TouchableOpacity
           onPress={this.handleUpdateExercise}
           style={styles.loginButton}>
           <Text style={{
             color: colors.blue, justifyContent: 'center', alignItems: 'center', padding: 20,
           }}>Create Exercise</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+
+
+
       </View>
     );
   }
