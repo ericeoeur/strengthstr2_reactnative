@@ -152,6 +152,40 @@ const styles = StyleSheet.create({
 
 export default class Dashboard extends Component {
 
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      workoutCount: [],
+      exercisesCompletedCount: [],
+      exercisesFailedCount: []
+    }
+
+  }
+
+  componentDidMount() {
+    const { navigation } = this.props;
+
+    this.focusListener = navigation.addListener('focus', () => {
+      
+    fetch("http://localhost:8000/workouts/" + this.props.route.params.myJSON.data.id + "/count")
+    .then(data => {
+      return data.json()
+    },
+      err => console.log(err))
+    .then(parsedData =>
+      this.setState({
+        workoutCount: parsedData
+      }),
+      err => console.log(err))
+  });
+
+  }
+
+
+
+
+
   handleLogOut = () => {
     alert("You have logged out!")
 
@@ -217,7 +251,7 @@ export default class Dashboard extends Component {
           <Text style={styles.textBodyFail}> Exercises Failed</Text>
           <Text style={styles.queryResultText}> 5</Text>
           <Text style={styles.textBodyComplete}> Workouts Total</Text>
-          <Text style={styles.queryResultText}> 25</Text>
+          <Text style={styles.queryResultText}> {this.state.workoutCount.data}</Text>
 
 {/* Need to add queries from backend here to count */}
 

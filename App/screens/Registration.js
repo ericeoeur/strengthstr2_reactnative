@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   buttonContainers: {
-    backgroundColor: colors.blue,
+    backgroundColor: colors.bulma,
     borderRadius: 30,
     width: "50%",
     height: 50,

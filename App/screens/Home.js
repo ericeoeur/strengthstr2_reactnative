@@ -58,6 +58,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white'
   },
+  buttonContainersRegister: {
+    backgroundColor: colors.bulma,
+    borderRadius: 30,
+    width: "60%",
+    height: 75,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: 'center',
+    color: 'white'
+  },
   buttonText: {
     color: 'white',
     fontSize: 30,
@@ -114,7 +124,7 @@ export default ({ navigation }) => {
       </TouchableOpacity>
 
       <TouchableOpacity 
-      style={styles.buttonContainers}
+      style={styles.buttonContainersRegister}
       onPress={() => navigation.push('Registration')}
       >
               <Text style={styles.buttonText}>Register</Text>
