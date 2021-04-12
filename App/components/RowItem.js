@@ -1,6 +1,6 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet, View} from 'react-native'; 
-import colors from '../constants/colors'; 
+import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import colors from '../constants/colors';
 
 
 const styles = StyleSheet.create({
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', //maximize space between two icons in this row 
     alignItems: 'center', //text and icon are aligned with each other 
     flexDirection: 'row',
-    backgroundColor: colors.white,
+    backgroundColor: colors.lightwhite,
   },
   text: {
     color: colors.text,
@@ -21,17 +21,25 @@ const styles = StyleSheet.create({
     height: StyleSheet.hairlineWidth,
     marginLeft: 20,
   },
-}); 
+});
 
-export const RowItem = ({ text, rightIcon, onPress}) => {
+export const RowItem = ({ text, trashIcon, rightIcon, onPress }) => {
   return (
 
-    <TouchableOpacity style={styles.row} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.row}
+      onPress={onPress}>
+
+      
+
       <Text style={styles.title}> {text}</Text>
-      { rightIcon }
+
+      {trashIcon}
+      {rightIcon}
+
     </TouchableOpacity>
   )
 }
 
 
-export const RowSeperator = () =>   <View style={styles.separator} />;
+export const RowSeperator = () => <View style={styles.separator} />;

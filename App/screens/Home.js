@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     fontSize: 35,
     marginVertical: 20,
     textAlign: "center",
-    fontFamily: 'Avenir-Light'    
+    fontFamily: 'Avenir-Light'
   },
   ImageBackground: {
     flex: 1,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 30,
-    fontFamily: 'Avenir-Light'    
+    fontFamily: 'Avenir-Light'
   }
 
 });
@@ -91,7 +91,7 @@ export default ({ navigation }) => {
     </SafeAreaView>
 
     <StatusBar barStyle="light-content" />
-    
+
     <ImageBackground
       source={require("../assets/images/tiny_grid.png")}
       imageStyle={{ flex: 1 }}
@@ -117,17 +117,17 @@ export default ({ navigation }) => {
 
       <Text style={styles.textHeader}> StrengthSTR Mobile</Text>
 
-      <TouchableOpacity 
-      style={styles.buttonContainers}
-      onPress={() => navigation.push('SignIn')}>
-      <Text style={styles.buttonText}>Sign In</Text>
+      <TouchableOpacity
+        style={styles.buttonContainers}
+        onPress={() => navigation.push('SignIn')}>
+        <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity 
-      style={styles.buttonContainersRegister}
-      onPress={() => navigation.push('Registration')}
+      <TouchableOpacity
+        style={styles.buttonContainersRegister}
+        onPress={() => navigation.push('Registration')}
       >
-              <Text style={styles.buttonText}>Register</Text>
+        <Text style={styles.buttonText}>Register</Text>
 
       </TouchableOpacity>
 

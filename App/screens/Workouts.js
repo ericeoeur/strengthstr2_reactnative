@@ -12,19 +12,22 @@ import {
   StyleSheet,
   StatusBar,
   FlatList,
+  SectionList,
   TouchableWithoutFeedback
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../constants/colors';
+import { RowItem, RowSeperator } from '../components/RowItem';
+
 
 const screen = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.blue,
     justifyContent: 'center',
-    backgroundColor: colors.linkblue,
   },
   logoContainer: {
     alignItems: 'center',
@@ -40,22 +43,13 @@ const styles = StyleSheet.create({
     width: screen.width * 0.75,
     height: screen.width * 0.75,
   },
-  introButton: {
-    width: "75%",
-    borderRadius: 25,
-    height: 50,
-    padding: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    backgroundColor: "tan",
-  },
   textHeader: {
     color: colors.blue,
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 35,
     marginVertical: 20,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: 'Avenir-Light'
   },
   ImageBackground: {
     flex: 1,
@@ -67,9 +61,58 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'flex-end',
     marginHorizontal: 20,
-    backgroundColor: colors.linkblue,
     height: 110,
-  }
+  },
+  buttonContainers: {
+    backgroundColor: colors.blue,
+    borderRadius: 30,
+    width: "60%",
+    height: 75,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: 'center',
+    color: 'white'
+  },
+  buttonContainersRegister: {
+    backgroundColor: colors.bulma,
+    borderRadius: 30,
+    width: "60%",
+    height: 75,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: 'center',
+    color: 'white'
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 30,
+    fontFamily: 'Avenir-Light'
+  },
+  top: {
+    flex: 1,
+    alignItems: "center",
+    marginBottom: 100
+  },
+  addWorkoutButton: {
+    width: screen.width * 0.85,
+    borderRadius: 25,
+    height: 65,
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    backgroundColor: colors.blue,
+    fontFamily: colors.fontFamily
+
+  },
+
+  workoutButtonText: {
+    fontSize: 30,
+    color: 'white',
+    fontFamily: colors.fontFamily,
+
+  },
+
 
 });
 
@@ -134,33 +177,33 @@ export default class Workouts extends Component {
       ).then(
         this.componentDidMount()
 
-    ).catch(error => console.log({ 'Error': error }))
+      ).catch(error => console.log({ 'Error': error }))
   }
 
 
-    // == Delete a workout and associated exercises based off Workout ID== //
-    handleDeleteWorkout(id) {
-      console.log("deleted button")
-      console.log(id)
+  // == Delete a workout and associated exercises based off Workout ID== //
+  handleDeleteWorkout(id) {
+    console.log("deleted button")
+    console.log(id)
 
-      fetch('http://localhost:8000/workouts/' + id + "/exercises", {
-        method: 'DELETE',
-      }).then(res => {
-        console.log("deleted exercises")
-      }).then(  
+    fetch('http://localhost:8000/workouts/' + id + "/exercises", {
+      method: 'DELETE',
+    }).then(res => {
+      console.log("deleted exercises")
+    }).then(
       fetch('http://localhost:8000/workouts/' + id, {
         method: 'DELETE',
       }).then(res => {
         console.log("deleted Workout")
         this.componentDidMount()
       })
-      )
-    }
+    )
+  }
 
 
 
 
-  
+
 
 
 
@@ -169,26 +212,60 @@ export default class Workouts extends Component {
     return (
       <View>
 
-        <TouchableOpacity
-          onPress={this.handleAddWorkout}
+        <View style={styles.top}>
+          <TouchableOpacity
+            style={styles.addWorkoutButton}
+            onPress={this.handleAddWorkout}>
+            <Text style={styles.workoutButtonText}>Add Workout</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* <TouchableOpacity
         >
           <Text style={{
             justifyContent: 'center', alignItems: 'center', padding: 20,
           }}>Add Workout</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        
 
         {this.state.listLoaded && (
           <View style={{ paddingTop: 30 }}>
             <FlatList
               data={this.state.workouts.data}
               renderItem={({ item }) =>
-                <WorkoutItem
-                  navigate={navigate}
-                  id={item.id}
-                  image={item.image}
-                  note={item.note}
-                  handleDeleteWorkout={this.handleDeleteWorkout.bind(this)}
-                />
+
+                <RowItem
+                  text={"Workout " + item.created_at}
+                  onPress={() => this.props.navigation.navigate('Exercises', { workoutId: item.id })}
+                 
+
+                  trashIcon={
+                    <Ionicons 
+                    name="trash-bin-outline" 
+                    onPress={() => this.handleDeleteWorkout(item.id)}
+                    size={30} 
+                    color={colors.dangerred} />
+                  }
+
+
+                  rightIcon={
+                    <Ionicons 
+                    name="chevron-forward-outline" 
+                    onPress={() => this.props.navigation.navigate('Exercises', { workoutId: item.id })}
+                    size={30} 
+                    color={colors.bulma} />
+                  } />
+
+
+
+
+                // <WorkoutItem
+                //   navigate={navigate}
+                //   id={item.id}
+                //   image={item.image}
+                //   note={item.note}
+                //   handleDeleteWorkout={this.handleDeleteWorkout.bind(this)}
+                // />
 
               }
             />
@@ -204,6 +281,10 @@ export default class Workouts extends Component {
     );
   }
 };
+
+
+
+
 
 
 export class WorkoutItem extends React.Component {
@@ -222,7 +303,20 @@ export class WorkoutItem extends React.Component {
     return (
       <View style={{ paddingTop: 20, alignItems: 'center' }}>
 
-      <TouchableWithoutFeedback onPress={this.onPress}>
+        <RowItem
+          text="About the Creator"
+          onPress={() => alert('Todo!')}
+          leftIcon={
+            <Entypo name="chevron-right" size={20} color={colors.blue} />
+          }
+          rightIcon={
+            <Entypo name="chevron-right" size={20} color={colors.blue} />
+          }/> 
+
+
+        <RowSeperator />
+
+        {/* <TouchableWithoutFeedback onPress={this.onPress}>
           <Text>
             Workout ID: {this.props.id}
           </Text>
@@ -230,10 +324,10 @@ export class WorkoutItem extends React.Component {
 
         <TouchableOpacity onPress={this.onDelete}>
         <Ionicons name="trash" size={25} color={colors.blue} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        
-        </View>
+
+      </View>
 
 
 

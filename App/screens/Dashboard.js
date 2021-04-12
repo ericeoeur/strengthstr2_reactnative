@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     marginHorizontal: 20,
     backgroundColor: colors.linkblue,
-    height: 110,
+    height: 90,
   },
   bottom: {
     flex: 1,
@@ -167,18 +167,18 @@ export default class Dashboard extends Component {
     const { navigation } = this.props;
 
     this.focusListener = navigation.addListener('focus', () => {
-      
-    fetch("http://localhost:8000/workouts/" + this.props.route.params.myJSON.data.id + "/count")
-    .then(data => {
-      return data.json()
-    },
-      err => console.log(err))
-    .then(parsedData =>
-      this.setState({
-        workoutCount: parsedData
-      }),
-      err => console.log(err))
-  });
+
+      fetch("http://localhost:8000/workouts/" + this.props.route.params.myJSON.data.id + "/count")
+        .then(data => {
+          return data.json()
+        },
+          err => console.log(err))
+        .then(parsedData =>
+          this.setState({
+            workoutCount: parsedData
+          }),
+          err => console.log(err))
+    });
 
   }
 

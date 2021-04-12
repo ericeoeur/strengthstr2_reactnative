@@ -89,9 +89,44 @@ const MainStackScreen = () => (
     
     />
     <MainStack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
-    <MainStack.Screen name="Workouts" component={Workouts} />
-    <MainStack.Screen name="Exercises" component={Exercises} />
-    <MainStack.Screen name="ExerciseDetail" component={ExerciseDetail} />
+    <MainStack.Screen name="Workouts" 
+    component={Workouts}
+    options={{
+      title: 'Workouts',
+      headerStyle: {
+        backgroundColor: colors.bulma,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}  
+    
+    
+    />
+    <MainStack.Screen name="Exercises" component={Exercises} 
+     options={{
+      title: 'Exercises',
+      headerStyle: {
+        backgroundColor: colors.bulma,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}  
+    
+    />
+    <MainStack.Screen name="ExerciseDetail" component={ExerciseDetail}  options={{
+      title: 'Exercise Detail',
+      headerStyle: {
+        backgroundColor: colors.bulma,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}   />
   </MainStack.Navigator>
 );
 
