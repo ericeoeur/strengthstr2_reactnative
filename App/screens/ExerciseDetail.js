@@ -19,11 +19,10 @@ import {
 import colors from '../constants/colors';
 import { TextInput } from 'react-native-gesture-handler';
 import { ExerciseInput, ExerciseNumberInput } from '../components/ExerciseInput';
-import { color } from 'react-native-reanimated';
 import NumericInput from 'react-native-numeric-input';
 
 
-
+import { Ionicons } from '@expo/vector-icons';
 
 const screen = Dimensions.get('window');
 
@@ -39,13 +38,33 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   logoBackground: {
+    marginTop: 10,
     width: screen.width / 0.80,
     height: screen.width * 0.80,
   },
-  logo: {
+  textOverlayContainer: {
     position: 'absolute',
-    width: screen.width * 0.75,
-    height: screen.width * 0.75,
+    textAlign: "center",
+    width: screen.width * 0.5,
+    height: screen.width * 0.3,
+  },
+  textOverlayLift: {
+    position: 'absolute',
+    textAlign: "center",
+    width: screen.width * 0.5,
+    height: screen.width * 0.9,
+    paddingTop: 20,
+    fontSize: 30,
+    fontFamily: colors.fontFamily 
+  },
+  textOverlayDetails: {
+    position: 'absolute',
+    textAlign: "center",
+    paddingTop: 70,
+    width: screen.width * 0.5,
+    height: screen.width * 0.9,
+    fontSize: 25,
+    fontFamily: colors.fontFamily 
   },
   introButton: {
     width: "75%",
@@ -76,7 +95,63 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     backgroundColor: colors.linkblue,
     height: 110,
-  }
+  },
+  buttonContainers: {
+    backgroundColor: colors.blue,
+    borderRadius: 30,
+    width: "60%",
+    height: 75,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: 'center',
+    color: 'white'
+  },
+  buttonContainersRegister: {
+    backgroundColor: colors.bulma,
+    borderRadius: 30,
+    width: "60%",
+    height: 75,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: 'center',
+    color: 'white'
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 30,
+    fontFamily: 'Avenir-Light'
+  },
+  top: {
+    flex: 1,
+    alignItems: "center",
+    marginBottom: 100
+  },
+  addExerciseButton: {
+    width: screen.width * 0.85,
+    borderRadius: 25,
+    height: 65,
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    backgroundColor: colors.bulma,
+    fontFamily: colors.fontFamily
+
+  },
+
+  workoutButtonText: {
+    fontSize: 30,
+    color: 'white',
+    fontFamily: colors.fontFamily,
+
+  },
+  textBody: {
+    color: colors.blue,
+    fontSize: 20,
+    marginVertical: 20,
+    textAlign: "center",
+    fontFamily: 'Avenir-Light'
+  },
 
 });
 
@@ -128,49 +203,49 @@ export default class ExerciseDetail extends Component {
         err => console.log(err))
   }
 
-  handleUpdateExercise () { 
+  handleUpdateExercise() {
     let workoutId = this.props.route.params.workoutId;
     let exerciseId = this.props.route.params.exerciseId;
-  
-    const {lift_name} = this.state;
-    const {weight} = this.state;
-    const {sets} = this.state;
-    const {reps} = this.state;
-    const {note} = this.state;
-    const {completed} = this.state;
-  
+
+    const { lift_name } = this.state;
+    const { weight } = this.state;
+    const { sets } = this.state;
+    const { reps } = this.state;
+    const { note } = this.state;
+    const { completed } = this.state;
+
     // console.log(username);
-  
+
     let exercise = JSON.stringify({
-        lift_name: lift_name,
-        weight: Number(weight),
-        sets: Number(sets),
-        reps: Number(reps),
-        note: note,
-        completed: Boolean(completed),
+      lift_name: lift_name,
+      weight: Number(weight),
+      sets: Number(sets),
+      reps: Number(reps),
+      note: note,
+      completed: Boolean(completed),
     })
-  
+
     console.log(exercise);
-  
-    fetch('http://localhost:8000/workouts/'+workoutId+'/exercises/'+exerciseId, {
+
+    fetch('http://localhost:8000/workouts/' + workoutId + '/exercises/' + exerciseId, {
       method: 'PUT',
-      headers:{
+      headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body:(exercise)
+      body: (exercise)
     })
-    .then((response) => response.text())  
-      .then((responseJson) =>{
-      console.log(responseJson);
-      alert("Exercise Successfully Created!");
-      // this.props.route.params.componentDidMount();
-    })
-      .catch((error)=>{
+      .then((response) => response.text())
+      .then((responseJson) => {
+        console.log(responseJson);
+        alert("Exercise Successfully Created!");
+        // this.props.route.params.componentDidMount();
+      })
+      .catch((error) => {
         console.error(error);
         alert(error);
       });
-    
+
   }
 
   render() {
@@ -178,101 +253,31 @@ export default class ExerciseDetail extends Component {
     return (
       <View>
 
-        <TouchableOpacity>
-          <Text style={{
-            justifyContent: 'center', alignItems: 'center', padding: 20,
-          }}>Test</Text>
-        </TouchableOpacity>
-
-        <ExerciseInput
-          text="Lift Name"
-          value={this.state.lift_name}
-          autoCapitalize='none'
-          onButtonPress={() => alert("Add your name!")}
-          onChangeText={lift_name => this.setState({ lift_name })}
-        />
-{/* 
-        <ExerciseNumberInput
-          text="Weight"
-          value={this.state.currentExercise.weight}
-          autoCapitalize='none'
-          onButtonPress={() => alert("Add your name!")}
-          onChange={weight => this.setState({ weight })}
-        /> */}
-
-        <Text>Weight</Text>
-        <NumericInput         
-        value={this.state.weight}
-        onChange={weight => this.setState({ weight })} 
-        step={5}
-        />
-
-        {/* <ExerciseNumberInput
-          text="Sets"
-          value={this.state.sets}
-          autoCapitalize='none'
-          onButtonPress={() => alert("Add your name!")}
-          onChangeText={sets => this.setState({ sets })}
-        /> */}
-
-        <Text>Sets</Text>
-        <NumericInput         
-        value={this.state.sets}
-        onChange={sets => this.setState({ sets })} 
-        />
-
-
-      <Text>Reps</Text>
-        <NumericInput         
-        value={this.state.reps}
-        onChange={reps => this.setState({ reps })} 
-        />
-
-
-
-        {/* <ExerciseNumberInput
-          text="Reps"
-          value={this.state.reps}
-          autoCapitalize='none'
-          onButtonPress={() => alert("Add your name!")}
-          onChangeText={reps => this.setState({ reps })}
-        /> */}
-
-        <ExerciseInput
-          text="Note"
-          value={this.state.note}
-          autoCapitalize='none'
-          onButtonPress={() => alert("Add your name!")}
-          onChangeText={note => this.setState({ note })}
-        />
-
-
-
-        <TouchableOpacity
-          onPress={this.handleUpdateExercise}
-          style={styles.loginButton}>
-          <Text style={{
-            color: color.blue, justifyContent: 'center', alignItems: 'center', padding: 20,
-          }}>Create Exercise</Text>
-        </TouchableOpacity>
-
-        {/* <TouchableOpacity >
-      <Text style={{
-        color: color.blue, justifyContent: 'center', alignItems: 'center', padding: 20,
-      }}>Completed</Text>
-    </TouchableOpacity>
-
-    <TouchableOpacity >
-      <Text style={{
-        color: color.blue, justifyContent: 'center', alignItems: 'center', padding: 20,
-      }}>Failed</Text>
-    </TouchableOpacity> */}
-
-
-
+        
 
         {this.state.currentExerciseLoaded && (
           <View style={{ paddingTop: 30 }}>
+
+
+            <View style={styles.logoContainer}>
+              <Image
+                source={require('../assets/images/background.png')}
+                style={styles.logoBackground}
+                resizeMode="contain"
+              />
+
+              <View style={styles.textOverlayContainer}>
+              <Text style={styles.textOverlayLift} resizeMode="contain"> {this.state.lift_name}
+              </Text>
+              <Text style={styles.textOverlayDetails} resizeMode="contain"> {this.state.sets} x {this.state.reps} @ {this.state.weight}
+              </Text>
+
+              </View>
+
+           
+
+
+            </View>
 
             <Text>
               {this.state.currentExercise.lift_name}
@@ -294,6 +299,56 @@ export default class ExerciseDetail extends Component {
             <Text> LOADING </Text>
           </View>
         )}
+
+
+        <ExerciseInput
+          text="Lift Name"
+          value={this.state.lift_name}
+          autoCapitalize='none'
+          onButtonPress={() => alert("Add your name!")}
+          onChangeText={lift_name => this.setState({ lift_name })}
+        />
+
+
+        <Text>Weight</Text>
+        <NumericInput
+          value={this.state.weight}
+          onChange={weight => this.setState({ weight })}
+          step={5}
+        />
+
+
+
+        <Text>Sets</Text>
+        <NumericInput
+          value={this.state.sets}
+          onChange={sets => this.setState({ sets })}
+        />
+
+
+        <Text>Reps</Text>
+        <NumericInput
+          value={this.state.reps}
+          onChange={reps => this.setState({ reps })}
+        />
+
+        <ExerciseInput
+          text="Note"
+          value={this.state.note}
+          autoCapitalize='none'
+          onButtonPress={() => alert("Add your name!")}
+          onChangeText={note => this.setState({ note })}
+        />
+
+
+
+        <TouchableOpacity
+          onPress={this.handleUpdateExercise}
+          style={styles.loginButton}>
+          <Text style={{
+            color: colors.blue, justifyContent: 'center', alignItems: 'center', padding: 20,
+          }}>Create Exercise</Text>
+        </TouchableOpacity>
       </View>
     );
   }

@@ -15,7 +15,6 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 
-import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../constants/colors';
 
@@ -144,11 +143,24 @@ export default class Exercises extends Component {
   componentDidMount() {
 
     const { navigation } = this.props;
-
-    this.focusListener = navigation.addListener('focus', () => {
-
     let workoutId = this.props.route.params.workoutId;
 
+
+    fetch("http://localhost:8000/workouts/" + workoutId + "/exercises")
+    .then(data => {
+      return data.json()
+    },
+      err => console.log(err))
+    .then(parsedData =>
+      this.setState({
+        exerciselistLoaded: true,
+        exercises: parsedData,
+      }),
+      err => console.log(err))
+  
+
+
+    this.focusListener = navigation.addListener('focus', () => {
     fetch("http://localhost:8000/workouts/" + workoutId + "/exercises")
       .then(data => {
         return data.json()
