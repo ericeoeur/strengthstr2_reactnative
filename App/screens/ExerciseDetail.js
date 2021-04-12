@@ -337,20 +337,20 @@ export default class ExerciseDetail extends Component {
             <Text> LOADING </Text>
           </View>
         )}
-{/* 
+
         <View style={styles.setCompletedContainer}>
 
         <TouchableOpacity
             style={styles.completedLiftButton}
-            onPress={alert("Completed!")}>
+            onPress={ () => {alert("Completed!")}}>
             <Text style={styles.liftButtonText}>Completed</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.failedLiftButton}
-            onPress={alert("Failed!")}>
+            onPress={() => {alert("Failed!")}}>
             <Text style={styles.liftButtonText}>Failed</Text>
           </TouchableOpacity>
-        </View> */}
+        </View> 
 
 
         <ExerciseInput
