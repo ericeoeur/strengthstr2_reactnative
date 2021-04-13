@@ -189,7 +189,7 @@ export default class Exercises extends Component {
         this.props.navigation.navigate('ExerciseDetail', {
           exerciseId: this.state.currentExercise.id,
           workoutId: this.state.workoutId,
-          componentDidMount: this.componentDidMount.bind(this)
+          // componentDidMount: this.componentDidMount.bind(this)
         })
       ).then(
         this.componentDidMount()

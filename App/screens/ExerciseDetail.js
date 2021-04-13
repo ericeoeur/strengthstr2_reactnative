@@ -1,28 +1,17 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   Text,
   View,
-  ImageBackground,
   Image,
   Dimensions,
   TouchableOpacity,
-  Button,
   StyleSheet,
-  StatusBar,
-  FlatList,
-  ActivityIndicator
 } from 'react-native';
 
-
 import colors from '../constants/colors';
-import { TextInput } from 'react-native-gesture-handler';
-import { ExerciseInput, ExerciseNumberInput } from '../components/ExerciseInput';
+import { ExerciseInput } from '../components/ExerciseInput';
 import NumericInput from 'react-native-numeric-input';
-
-
-import { Ionicons } from '@expo/vector-icons';
 
 const screen = Dimensions.get('window');
 
@@ -192,9 +181,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.bulma,
     fontFamily: colors.fontFamily
   },
-
- 
-
   workoutButtonText: {
     fontSize: 30,
     color: 'white',
@@ -270,8 +256,6 @@ export default class ExerciseDetail extends Component {
     const { note } = this.state;
     const { completed } = this.state;
 
-    // console.log(username);
-
     let exercise = JSON.stringify({
       lift_name: lift_name,
       weight: Number(weight),
@@ -280,8 +264,6 @@ export default class ExerciseDetail extends Component {
       note: note,
       completed: Boolean(completed),
     })
-
-    console.log(exercise);
 
     fetch('https://strengthstr-mobile.herokuapp.com/workouts/' + workoutId + '/exercises/' + exerciseId, {
       method: 'PUT',
@@ -294,7 +276,7 @@ export default class ExerciseDetail extends Component {
       .then((response) => response.text())
       .then((responseJson) => {
         console.log(responseJson);
-        alert("Exercise Successfully Created!");
+        alert("Exercise Saved/Updated!");
         // this.props.route.params.componentDidMount();
       })
       .catch((error) => {
@@ -309,12 +291,8 @@ export default class ExerciseDetail extends Component {
     return (
       <View>
 
-
-
         {this.state.currentExerciseLoaded && (
           <View style={{ paddingTop: 30 }}>
-
-
             <View style={styles.logoContainer}>
               <Image
                 source={require('../assets/images/background.png')}
@@ -402,49 +380,7 @@ export default class ExerciseDetail extends Component {
             <Text style={styles.workoutButtonText}>Save Exercise</Text>
           </TouchableOpacity>
         </View>
-
-
-
-        {/* <TouchableOpacity
-          onPress={this.handleUpdateExercise}
-          style={styles.loginButton}>
-          <Text style={{
-            color: colors.blue, justifyContent: 'center', alignItems: 'center', padding: 20,
-          }}>Create Exercise</Text>
-        </TouchableOpacity> */}
-
-
-
       </View>
     );
   }
 };
-
-
-// export class ExerciseDetails extends React.Component {
-//   onPress = () => {
-//     console.log(this.props.id)
-//     // this.props.navigate('Exercises', {workoutId: this.props.id});
-//   };
-
-//   render() {
-//     return (
-//       <TouchableWithoutFeedback onPress={this.onPress}>
-//         <View style={{ paddingTop: 20, alignItems: 'center' }}>
-//           <Text>
-//             Exercise ID: {this.props.id}
-//             lift_name: {this.props.lift_name}
-//             note: {this.props.note}
-//             reps: {this.props.reps}
-//             sets: {this.props.sets}
-//             weight: {this.props.weight}
-//           </Text>
-//         </View>
-
-
-
-//       </TouchableWithoutFeedback>
-//     )
-//   }
-
-// }
