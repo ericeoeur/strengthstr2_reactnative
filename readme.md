@@ -44,7 +44,7 @@ I can add any type of workout that I want
 ## Technologies Used
   * Languages - HTML5, Javascript, CSS
   * Frameworks and Middleware: React Native, Express, Node, Flask 
-  * Database: PostgresSQL
+  * Database: PostgreSQL
   * Design - Bulma, MaterialJS, Google Fonts
   * Editor – Visual Studio Code 
 
