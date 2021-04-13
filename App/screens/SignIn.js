@@ -1,8 +1,7 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Image, SafeAreaView, Dimensions, TextInput, InputView, TouchableOpacity, ImageBackground, Button, Keyboard } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 
 import colors from '../constants/colors';
-import { Entypo } from '@expo/vector-icons';
 const screen = Dimensions.get('window');
 
 
@@ -36,7 +35,7 @@ export default class SignIn extends Component {
           alert("Wrong username/password. Try again");
         }
         else {
-          alert("Login Successful")
+          alert("Login Successful!")
           this.props.navigation.navigate('Dashboard', { myJSON: jsonData }
           );
         }
@@ -45,8 +44,6 @@ export default class SignIn extends Component {
         console.log(e);
       })
   }
-
-  
 
   render() {
     return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet,  Image, Dimensions, Text, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, StyleSheet,  Image, Dimensions, Text, TouchableOpacity, ImageBackground } from 'react-native';
 
 import colors from '../constants/colors';
 import { RegistrationInput } from '../components/RegistrationInput';

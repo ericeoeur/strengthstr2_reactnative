@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, StatusBar, Image, Dimensions, Text, TouchableOpacity, Button, ImageBackground } from 'react-native';
+import { View, StyleSheet, StatusBar, Image, Dimensions, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import colors from '../constants/colors';
 
+// HOME.js is the inital page React Navigation takes you to either sign in or register for an account. 
 
 const screen = Dimensions.get('window');
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'Avenir-Light'
   }
-
 });
 
 
@@ -130,12 +129,6 @@ export default ({ navigation }) => {
         <Text style={styles.buttonText}>Register</Text>
 
       </TouchableOpacity>
-
-      {/* <Button
-        style={styles.introButton}
-        title="Dashboard"
-        onPress={() => navigation.push('Dashboard')}
-      /> */}
 
     </ImageBackground>
   </View>

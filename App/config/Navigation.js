@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
+// Import All Screens
 import Home from '../screens/Home';
 import Options from '../screens/Options';
 import Registration from '../screens/Registration';
@@ -14,9 +15,7 @@ import Exercises from '../screens/Exercises';
 import ExerciseDetail from '../screens/ExerciseDetail';
 import colors from '../constants/colors';
 
-
-
-
+// Bottom Tab Navigator. Didn't end up using because i couldn't send props through it properly. 
 const AppTabs = createBottomTabNavigator();
 const AppTabsScreen = (props) => (
   <AppTabs.Navigator>
@@ -51,10 +50,7 @@ const AppTabsScreen = (props) => (
   </AppTabs.Navigator>
 );
 
-
-
-
-
+// Main Navigator for App 
 const MainStack = createStackNavigator();
 const MainStackScreen = () => (
   <MainStack.Navigator
