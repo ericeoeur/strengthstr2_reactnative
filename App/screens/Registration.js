@@ -92,7 +92,7 @@ export default class Register extends Component {
       weight: Number(weight),
     })
 
-    fetch('http://localhost:8000/lifter/register', {
+    fetch('https://strengthstr-mobile.herokuapp.com/lifter/register', {
       method: 'post',
       headers: {
         'Accept': 'application/json',

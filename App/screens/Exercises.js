@@ -146,7 +146,7 @@ export default class Exercises extends Component {
     let workoutId = this.props.route.params.workoutId;
 
 
-    fetch("http://localhost:8000/workouts/" + workoutId + "/exercises")
+    fetch("https://strengthstr-mobile.herokuapp.com/workouts/" + workoutId + "/exercises")
       .then(data => {
         return data.json()
       },
@@ -161,7 +161,7 @@ export default class Exercises extends Component {
 
 
     this.focusListener = navigation.addListener('focus', () => {
-      fetch("http://localhost:8000/workouts/" + workoutId + "/exercises")
+      fetch("https://strengthstr-mobile.herokuapp.com/workouts/" + workoutId + "/exercises")
         .then(data => {
           return data.json()
         },
@@ -177,7 +177,7 @@ export default class Exercises extends Component {
 
   handleAddExercise() {
     console.log(this.state.workoutId);
-    fetch('http://localhost:8000/workouts/' + this.state.workoutId + "/exercises", {
+    fetch('https://strengthstr-mobile.herokuapp.com/workouts/' + this.state.workoutId + "/exercises", {
       method: 'POST',
       body: JSON.stringify({
         lift_name: '',
@@ -222,7 +222,7 @@ export default class Exercises extends Component {
     console.log("deleted button")
     console.log(id)
 
-    fetch('http://localhost:8000/workouts/' + this.state.workoutId + "/exercises/" + id, {
+    fetch('https://strengthstr-mobile.herokuapp.com/workouts/' + this.state.workoutId + "/exercises/" + id, {
       method: 'DELETE',
     }).then(res => {
       console.log("deleted exercise")

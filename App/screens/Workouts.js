@@ -131,7 +131,24 @@ export default class Workouts extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8000/workouts/")
+
+    const { navigation } = this.props;
+
+    fetch("https://strengthstr-mobile.herokuapp.com/workouts/")
+    .then(data => {
+      return data.json()
+    },
+      err => console.log(err))
+    .then(parsedData =>
+      this.setState({
+        listLoaded: true,
+        workouts: parsedData
+      }),
+      err => console.log(err))
+
+    this.focusListener = navigation.addListener('focus', () => {
+
+    fetch("https://strengthstr-mobile.herokuapp.com/workouts/")
       .then(data => {
         return data.json()
       },
@@ -142,11 +159,13 @@ export default class Workouts extends Component {
           workouts: parsedData
         }),
         err => console.log(err))
-  }
+    });
+  
+      }
 
   handleAddWorkout() {
     alert("add workout");
-    fetch('http://localhost:8000/workouts/', {
+    fetch('https://strengthstr-mobile.herokuapp.com/workouts/', {
       method: 'POST',
       body: JSON.stringify({
         note: '',
@@ -181,12 +200,12 @@ export default class Workouts extends Component {
     console.log("deleted button")
     console.log(id)
 
-    fetch('http://localhost:8000/workouts/' + id + "/exercises", {
+    fetch('https://strengthstr-mobile.herokuapp.com/workouts/' + id + "/exercises", {
       method: 'DELETE',
     }).then(res => {
       console.log("deleted exercises")
     }).then(
-      fetch('http://localhost:8000/workouts/' + id, {
+      fetch('https://strengthstr-mobile.herokuapp.com/workouts/' + id, {
         method: 'DELETE',
       }).then(res => {
         console.log("deleted Workout")

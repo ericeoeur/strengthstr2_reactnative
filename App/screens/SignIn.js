@@ -15,7 +15,7 @@ export default class SignIn extends Component {
 
   // Handle the Login Button Action here // 
   handleLogin = () => {
-    fetch("http://localhost:8000/lifter/login", {
+    fetch("https://strengthstr-mobile.herokuapp.com/lifter/login", {
       method: 'POST',
 
       headers: {
@@ -45,6 +45,8 @@ export default class SignIn extends Component {
         console.log(e);
       })
   }
+
+  
 
   render() {
     return (

@@ -166,9 +166,20 @@ export default class Dashboard extends Component {
   componentDidMount() {
     const { navigation } = this.props;
 
+    fetch("https://strengthstr-mobile.herokuapp.com/workouts/" + this.props.route.params.myJSON.data.id + "/count")
+        .then(data => {
+          return data.json()
+        },
+          err => console.log(err))
+        .then(parsedData =>
+          this.setState({
+            workoutCount: parsedData
+          }),
+          err => console.log(err))
+
     this.focusListener = navigation.addListener('focus', () => {
 
-      fetch("http://localhost:8000/workouts/" + this.props.route.params.myJSON.data.id + "/count")
+      fetch("https://strengthstr-mobile.herokuapp.com/workouts/" + this.props.route.params.myJSON.data.id + "/count")
         .then(data => {
           return data.json()
         },
@@ -189,7 +200,7 @@ export default class Dashboard extends Component {
   handleLogOut = () => {
     alert("You have logged out!")
 
-    fetch("http://localhost:8000/lifter/logout", {
+    fetch("https://strengthstr-mobile.herokuapp.com/lifter/logout", {
       method: 'GET'
     })
       .then((resp) => {
@@ -246,10 +257,10 @@ export default class Dashboard extends Component {
 
           <RowSeperator />
 
-          <Text style={styles.textBody}> Exercises Completed</Text>
+          {/* <Text style={styles.textBody}> Exercises Completed</Text>
           <Text style={styles.queryResultText}> 10</Text>
           <Text style={styles.textBodyFail}> Exercises Failed</Text>
-          <Text style={styles.queryResultText}> 5</Text>
+          <Text style={styles.queryResultText}> 5</Text> */}
           <Text style={styles.textBodyComplete}> Workouts Total</Text>
           <Text style={styles.queryResultText}> {this.state.workoutCount.data}</Text>
 

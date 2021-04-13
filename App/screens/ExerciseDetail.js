@@ -240,7 +240,7 @@ export default class ExerciseDetail extends Component {
     let workoutId = this.props.route.params.workoutId;
     let exerciseId = this.props.route.params.exerciseId;
 
-    fetch("http://localhost:8000/workouts/" + workoutId + "/exercises/" + exerciseId)
+    fetch("https://strengthstr-mobile.herokuapp.com/workouts/" + workoutId + "/exercises/" + exerciseId)
       .then(data => {
         return data.json()
       },
@@ -283,7 +283,7 @@ export default class ExerciseDetail extends Component {
 
     console.log(exercise);
 
-    fetch('http://localhost:8000/workouts/' + workoutId + '/exercises/' + exerciseId, {
+    fetch('https://strengthstr-mobile.herokuapp.com/workouts/' + workoutId + '/exercises/' + exerciseId, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
