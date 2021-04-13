@@ -1,22 +1,19 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   Text,
   View,
   ImageBackground,
   Image,
   Dimensions,
   TouchableOpacity,
-  Button,
   StyleSheet,
   StatusBar
 } from 'react-native';
 
 import { Entypo } from '@expo/vector-icons';
 import colors from '../constants/colors';
-import { RowItem, RowSeperator } from '../components/RowItem';
-
+import { RowSeperator } from '../components/RowItem';
 
 const screen = Dimensions.get('window');
 
@@ -163,19 +160,20 @@ export default class Dashboard extends Component {
 
   }
 
+  // Mount when you load the page and mount when you navigate back to the page (Focus)
   componentDidMount() {
     const { navigation } = this.props;
 
     fetch("https://strengthstr-mobile.herokuapp.com/workouts/" + this.props.route.params.myJSON.data.id + "/count")
-        .then(data => {
-          return data.json()
-        },
-          err => console.log(err))
-        .then(parsedData =>
-          this.setState({
-            workoutCount: parsedData
-          }),
-          err => console.log(err))
+      .then(data => {
+        return data.json()
+      },
+        err => console.log(err))
+      .then(parsedData =>
+        this.setState({
+          workoutCount: parsedData
+        }),
+        err => console.log(err))
 
     this.focusListener = navigation.addListener('focus', () => {
 
@@ -190,13 +188,9 @@ export default class Dashboard extends Component {
           }),
           err => console.log(err))
     });
-
   }
 
-
-
-
-
+  // Logout
   handleLogOut = () => {
     alert("You have logged out!")
 
@@ -264,15 +258,6 @@ export default class Dashboard extends Component {
           <Text style={styles.textBodyComplete}> Workouts Total</Text>
           <Text style={styles.queryResultText}> {this.state.workoutCount.data}</Text>
 
-{/* Need to add queries from backend here to count */}
-
-
-          {/* <Text>Email: {this.props.route.params.myJSON.data.email}</Text>
-            <Text>Weight: {this.props.route.params.myJSON.data.weight} </Text>
-            <Text>Age: {this.props.route.params.myJSON.data.age}</Text>
-            <Text>User Id: {this.props.route.params.myJSON.data.id}</Text> */}
-
-
 
           <View style={styles.bottom}>
             <TouchableOpacity
@@ -282,18 +267,8 @@ export default class Dashboard extends Component {
               <Text style={styles.loginText}>Workouts</Text>
             </TouchableOpacity>
           </View>
-
-
         </ImageBackground>
-
-
       </View>
-
-
-
-
-
-
     );
   }
 };
