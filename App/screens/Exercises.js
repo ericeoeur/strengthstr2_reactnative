@@ -1,23 +1,18 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
-  ImageBackground,
-  Image,
   Dimensions,
   TouchableOpacity,
-  Button,
   StyleSheet,
-  StatusBar,
   FlatList,
-  TouchableWithoutFeedback
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../constants/colors';
 
 const screen = Dimensions.get('window');
-import { ExerciseRowItem, ExerciseRowSeperator } from '../components/ExerciseRowItem';
+import { ExerciseRowItem } from '../components/ExerciseRowItem';
 
 const styles = StyleSheet.create({
   container: {
@@ -115,8 +110,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: 'Avenir-Light'
   },
-
-
 });
 
 export default class Exercises extends Component {
@@ -135,14 +128,11 @@ export default class Exercises extends Component {
     this.handleAddExercise = this.handleAddExercise.bind(this)
     this.handleDeleteExercise = this.handleDeleteExercise.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
-
   }
 
   componentDidMount() {
-
     const { navigation } = this.props;
     let workoutId = this.props.route.params.workoutId;
-
 
     fetch("https://strengthstr-mobile.herokuapp.com/workouts/" + workoutId + "/exercises")
       .then(data => {
@@ -155,8 +145,6 @@ export default class Exercises extends Component {
           exercises: parsedData,
         }),
         err => console.log(err))
-
-
 
     this.focusListener = navigation.addListener('focus', () => {
       fetch("https://strengthstr-mobile.herokuapp.com/workouts/" + workoutId + "/exercises")
@@ -191,9 +179,6 @@ export default class Exercises extends Component {
 
     }).then(res => res.json())
       .then((resJson) =>
-
-        // console.log(resJson)
-
         this.setState({
           currentExerciseLoaded: true,
           currentExercise: resJson.data
@@ -206,16 +191,13 @@ export default class Exercises extends Component {
           workoutId: this.state.workoutId,
           componentDidMount: this.componentDidMount.bind(this)
         })
-        // console.log("added exercise")
-
-
-
       ).then(
         this.componentDidMount()
 
       ).catch(error => console.log({ 'Error': error }))
   }
-  // == Delete a workout and associated exercises based off Workout ID== //
+
+  // == Delete a exercise by id== //
   handleDeleteExercise(id) {
     console.log("deleted button")
     console.log(id)
@@ -233,11 +215,8 @@ export default class Exercises extends Component {
   render() {
     const { navigate } = this.props.navigation;
 
-
-
     return (
       <View>
-
         <View style={styles.top}>
           <TouchableOpacity
             style={styles.addExerciseButton}
@@ -246,10 +225,7 @@ export default class Exercises extends Component {
           </TouchableOpacity>
         </View>
 
-
         <Text style={styles.textBody}> Sets x Reps @ Weight</Text>
-
-
 
         {this.state.exerciselistLoaded && (
           <View style={{ paddingTop: 20 }}>
@@ -257,7 +233,6 @@ export default class Exercises extends Component {
               data={this.state.exercises.data}
               keyExtractor={item => item.id.toString()}
               renderItem={({ item }) =>
-
 
                 <ExerciseRowItem
                   style={{
@@ -289,8 +264,6 @@ export default class Exercises extends Component {
                     componentDidMount: this.componentDidMount.bind(this)
                   })
                   }
-
-
                   trashIcon={
                     <Ionicons
                       name="trash-bin-outline"
@@ -299,29 +272,12 @@ export default class Exercises extends Component {
                       color={colors.dangerred} />
                   }
 
-
                   rightIcon={
                     <Ionicons
                       name="chevron-forward-outline"
                       size={30}
                       color={colors.bulma} />
                   } />
-
-
-
-                // <ExerciseItem
-                //   navigate={navigate}
-                //   exerciseId={item.id}
-                //   workoutId={this.state.workoutId}
-                //   lift_name={item.lift_name}
-                //   note={item.note}
-                //   reps={item.reps}
-                //   sets={item.sets}
-                //   weight={item.weight}
-                //   handleDeleteExercise={this.handleDeleteExercise.bind(this)}
-                //   componentDidMount={this.componentDidMount.bind(this)}
-                // />
-
               }
             />
           </View>
@@ -336,58 +292,3 @@ export default class Exercises extends Component {
     );
   }
 };
-
-
-export class ExerciseItem extends React.Component {
-
-
-  onPress = () => {
-    console.log(this.props.exerciseId)
-    this.props.navigate('ExerciseDetail', {
-      exerciseId: this.props.exerciseId,
-      workoutId: this.props.workoutId,
-      weight: this.props.weight,
-      sets: this.props.sets,
-      reps: this.props.reps,
-      componentDidMount: this.props.componentDidMount
-    });
-  };
-
-  onDelete = () => {
-    this.props.handleDeleteExercise(this.props.exerciseId)
-  }
-
-
-
-
-  render() {
-    return (
-
-      <View style={{ paddingTop: 20, alignItems: 'center' }}>
-        <TouchableWithoutFeedback onPress={this.onPress}>
-          <Text>
-            Exercise ID: {this.props.exerciseId}
-            lift_name: {this.props.lift_name}
-            note: {this.props.note}
-            reps: {this.props.reps}
-            sets: {this.props.sets}
-            weight: {this.props.weight}
-          </Text>
-        </TouchableWithoutFeedback>
-
-        <TouchableOpacity onPress={this.onDelete}>
-          <Ionicons name="trash" size={25} color={colors.blue} />
-        </TouchableOpacity>
-
-      </View>
-
-
-
-
-
-
-
-    )
-  }
-
-}

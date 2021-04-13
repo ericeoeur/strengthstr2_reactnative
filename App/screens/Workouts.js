@@ -13,7 +13,6 @@ import { Ionicons } from '@expo/vector-icons';
 import colors from '../constants/colors';
 import { RowItem } from '../components/RowItem';
 
-
 const screen = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -96,14 +95,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: colors.blue,
     fontFamily: colors.fontFamily
-
   },
 
   workoutButtonText: {
     fontSize: 30,
     color: 'white',
     fontFamily: colors.fontFamily,
-
   },
 
 });
@@ -160,7 +157,6 @@ export default class Workouts extends Component {
 
 // Add a workout 
   handleAddWorkout() {
-    alert("add workout");
     fetch('https://strengthstr-mobile.herokuapp.com/workouts/', {
       method: 'POST',
       body: JSON.stringify({
@@ -206,7 +202,6 @@ export default class Workouts extends Component {
       })
     )
   }
-
 
   render() {
     const { navigate } = this.props.navigation;
