@@ -219,7 +219,6 @@ export default class ExerciseDetail extends Component {
       completed: false
     }
     this.handleUpdateExercise = this.handleUpdateExercise.bind(this)
-
   }
 
   componentDidMount() {
@@ -325,11 +324,10 @@ export default class ExerciseDetail extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.failedLiftButton}
-            onPress={() => {alert("Failed!")}}>
+            onPress={() => {alert("Failed...")}}>
             <Text style={styles.liftButtonText}>Failed</Text>
           </TouchableOpacity>
         </View> 
-
 
         <ExerciseInput
           text="Lift Name"
@@ -340,7 +338,7 @@ export default class ExerciseDetail extends Component {
         />
 
         <SafeAreaView style={styles.numericInputContainer}>
-          <Text style={styles.numericInputText}>Weight</Text>
+          <Text style={styles.numericInputText}>Weight (lbs)</Text>
           <NumericInput
             totalWidth={screen.width * 0.9}
             totalHeight={40}
@@ -371,7 +369,6 @@ export default class ExerciseDetail extends Component {
           onButtonPress={() => alert("Add your name!")}
           onChangeText={note => this.setState({ note })}
         />
-
 
         <View style={styles.bottom}>
           <TouchableOpacity

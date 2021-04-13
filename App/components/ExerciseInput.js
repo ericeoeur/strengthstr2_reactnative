@@ -41,7 +41,6 @@ export const ExerciseInput = ({ text, onButtonPress, ...props}) => {
   )
 }; 
 
-
 export const ExerciseNumberInput = ({ text, onButtonPress, ...props}) => {
 
   return (
