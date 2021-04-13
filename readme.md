@@ -55,6 +55,7 @@ I can add any type of workout that I want
    
 ## Wireframing and Initial Design Concepts 
 ![Wireframe](https://github.com/ericeoeur/strengthstr2_reactnative/blob/main/assets/finalprojectsketch.jpg)
+![DB Design](https://github.com/ericeoeur/strengthstr2_reactnative/blob/main/assets/dbdesign2%20.jpg)
 
 ## Future Development
 * Allow the user to enter a custom date for the workout.
