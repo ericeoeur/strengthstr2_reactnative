@@ -1,8 +1,11 @@
 # Final Project: StrengthStr Mobile
 ![StrengthStr App Screen](https://github.com/ericeoeur/strengthstr2_reactnative/blob/main/assets/StrengthSTR%20Mobile.png)
+![StrengthStr App Screen](https://github.com/ericeoeur/strengthstr2_reactnative/blob/main/assets/Exercise%20Detail.png)
 ## Overview
 
 StrengthSTR Mobile is a mobile application to help the user organize their lifts in clean, easy to read format. Using React Native, this app allows the user to create workouts and add custom lifts so they can track their lifting progression over time. This project is for General Assembly's SEI-119 Final Project. 
+
+** StrengthSTR Mobile API ** [a link](https://github.com/ericeoeur/strengthstr_mobile_api)
 
 ## User Stories
 ### As a user I want
@@ -52,7 +55,7 @@ I can add any type of workout that I want
  
    
 ## Wireframing and Initial Design Concepts 
-![Wireframe](https://github.com/ericeoeur/ericeoeur.github.io/blob/main/strengthstr/public/img/jeopardy_wireframing.jpg)
+![Wireframe](https://github.com/ericeoeur/strengthstr2_reactnative/blob/main/assets/finalprojectsketch.jpg)
 
 ## Future Development
 * Allow the user to enter a custom date for the workout.
