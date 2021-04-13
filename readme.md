@@ -5,7 +5,7 @@
 
 StrengthSTR Mobile is a mobile application to help the user organize their lifts in clean, easy to read format. Using React Native, this app allows the user to create workouts and add custom lifts so they can track their lifting progression over time. This project is for General Assembly's SEI-119 Final Project. 
 
-** StrengthSTR Mobile API ** [a link](https://github.com/ericeoeur/strengthstr_mobile_api)
+[StrengthSTR Mobile API](https://github.com/ericeoeur/strengthstr_mobile_api)
 
 ## User Stories
 ### As a user I want
@@ -14,7 +14,6 @@ to track the progress of an individual workout
 ##### So that
 - See how each individual lift is going over time in detail
 - get details including set success/failure, personal notes per workout
-- a timer with options of 1-5 minutes within the workout so you dont have to use different apps
 
 ##### Acceptance Criteria 
 - see how each individual lift is going over time 
