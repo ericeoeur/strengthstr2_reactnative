@@ -1,7 +1,5 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
   Text,
   View,
   ImageBackground,
@@ -257,6 +255,7 @@ export default class Exercises extends Component {
           <View style={{ paddingTop: 20 }}>
             <FlatList
               data={this.state.exercises.data}
+              keyExtractor={item => item.id.toString()}
               renderItem={({ item }) =>
 
 
