@@ -1,10 +1,10 @@
 # Final Project: StrengthStr Mobile
-![StrengthStr Logo](https://github.com/ericeoeur/ericeoeur.github.io/blob/main/strengthstr/public/img/ss_barbell_mono.png)
+![StrengthStr App Screen](https://github.com/ericeoeur/strengthstr2_reactnative/blob/main/assets/StrengthSTR%20Mobile.png)
 ## Overview
 
 StrengthSTR Mobile is a mobile application to help the user organize their lifts in clean, easy to read format. Using React Native, this app allows the user to create workouts and add custom lifts so they can track their lifting progression over time. This project is for General Assembly's SEI-119 Final Project. 
 
-** User Stories **
+## User Stories
 ### As a user I want
 to track the progress of an individual workout 
 
